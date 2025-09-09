@@ -228,6 +228,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Featured Packages */}
+      <section className="section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="heading-1 section-title">Signature Experiences</h2>
+            <p className="section-subtitle">
+              Curated dining experiences designed to exceed expectations and create lasting memories
+            </p>
+          </div>
+          
+          <div className="grid-premium">
+            {featuredPackages.map((pkg) => (
+              <div key={pkg.id} className="card-premium">
+                <div className="card-image">
+                  <img src={pkg.image} alt={pkg.name} />
+                  <div className="card-overlay">{pkg.price}</div>
+                  {pkg.originalPrice && (
+                    <div className="absolute top-1 left-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                      Save ${parseInt(pkg.originalPrice.slice(1)) - parseInt(pkg.price.slice(1))}
+                    </div>
+                  )}
+                  <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    {pkg.badge}
+                  </div>
+                </div>
+                <div className="card-body">
+                  <h3 className="card-title">{pkg.name}</h3>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl font-bold text-green-600">{pkg.price}</span>
+                    {pkg.originalPrice && (
+                      <span className="text-lg text-gray-400 line-through">{pkg.originalPrice}</span>
+                    )}
+                  </div>
+                  <p className="card-description">{pkg.description}</p>
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    {pkg.features.map((feature, index) => (
+                      <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                        <span className="text-green-600">✓</span>
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+                  <a href="#order-now" className="button-primary">Order Now</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Order/Inquiry Section - Moved to Top */}
       <section id="order-now" className="section bg-gradient-to-br from-green-50 to-blue-50" style={{paddingTop: '6rem', paddingBottom: '6rem'}}>
         <div className="container">
@@ -421,82 +471,52 @@ export default function Home() {
           </div>
         </div>
       </section> */}
-        {/* Restaurant Experience Gallery */}
-<section className="section section-alt py-32 bg-slate-50">
- <div className="container max-w-7xl mx-auto px-8">
-   <div className="section-header text-center mb-24">
-     <div className="inline-flex items-center mb-10">
-       <div className="w-16 h-px bg-slate-300"></div>
-       <span className="text-xs font-semibold text-slate-400 mx-6 tracking-[0.4em] uppercase">Restaurant Excellence</span>
-       <div className="w-16 h-px bg-slate-300"></div>
-     </div>
-     <h2 className="heading-1 section-title text-5xl md:text-6xl font-extralight text-slate-900 mb-10 tracking-tight leading-[1.1]">Experience Our World</h2>
-     <p className="section-subtitle text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-light">
-       Step into an atmosphere where every detail is crafted to perfection, 
-       creating unforgettable moments for our guests
-     </p>
-   </div>
-                   
-   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-     {[
-       {
-         image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&h=400&fit=crop",
-         title: "Elegant Ambiance",
-         description: "Sophisticated interior design with warm lighting and premium furnishings"
-       },
-       {
-         image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&h=400&fit=crop",
-         title: "Culinary Artistry",
-         description: "Each dish is a masterpiece, crafted with passion and precision"
-       },
-       {
-         image: "https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=500&h=400&fit=crop",
-         title: "Master Chefs",
-         description: "Award-winning chefs bringing years of expertise to every plate"
-       }
-     ].map((item, index) => (
-       <div key={index} className="card-premium group">
-         <div className="card-image relative overflow-hidden bg-white shadow-xl hover:shadow-2xl transition-all duration-1000 border border-slate-200/50 rounded-sm">
-           <img 
-             src={item.image} 
-             alt={item.title}
-             className="w-full h-[400px] object-cover transition-all duration-1200 group-hover:scale-110 filter brightness-90 group-hover:brightness-100"
-           />
-           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-800"></div>
-           <div className="absolute bottom-0 left-0 right-0 p-10 text-white transform translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-800 delay-200">
-             <h3 className="text-2xl font-light mb-5 tracking-wide leading-tight">{item.title}</h3>
-             <div className="w-16 h-px bg-white/80 mb-5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-600 delay-400"></div>
-             <p className="text-sm font-light leading-relaxed text-slate-200 transform translate-y-2 group-hover:translate-y-0 transition-all duration-600 delay-500">{item.description}</p>
-           </div>
-                        
-           {/* Enhanced Corner Detail */}
-           <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-600 delay-300">
-             <div className="w-10 h-10 border border-white/40 backdrop-blur-md bg-white/10 flex items-center justify-center rounded-sm">
-               <div className="w-4 h-4 border-t-2 border-r-2 border-white transform rotate-45 transition-transform duration-500 group-hover:scale-110"></div>
-             </div>
-           </div>
 
-           {/* Number Badge */}
-           <div className="absolute top-8 left-8 opacity-0 group-hover:opacity-100 transition-all duration-600 delay-400">
-             <div className="w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
-               <span className="text-white text-xs font-medium">{String(index + 1).padStart(2, '0')}</span>
-             </div>
-           </div>
-         </div>
-       </div>
-     ))}
-   </div>
+      {/* Restaurant Experience Gallery */}
+      <section className="section section-alt">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="heading-1 section-title">Experience Our World</h2>
+            <p className="section-subtitle">
+              Step into an atmosphere where every detail is crafted to perfection, 
+              creating unforgettable moments for our guests
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&h=400&fit=crop",
+                title: "Elegant Ambiance",
+                description: "Sophisticated interior design with warm lighting and premium furnishings"
+              },
+              {
+                image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&h=400&fit=crop",
+                title: "Culinary Artistry",
+                description: "Each dish is a masterpiece, crafted with passion and precision"
+              },
+              {
+                image: "https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=500&h=400&fit=crop",
+                title: "Master Chefs",
+                description: "Award-winning chefs bringing years of expertise to every plate"
+              }
+            ].map((item, index) => (
+              <div key={index} className="card-premium group">
+                <div className="card-image">
+                  <img src={item.image} alt={item.title} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                    <p className="text-sm">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-   {/* Enhanced Bottom Accent */}
-   <div className="mt-24 text-center">
-     <div className="inline-flex items-center">
-       <div className="w-20 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
-       <div className="w-2 h-2 bg-slate-300 mx-6 rotate-45"></div>
-       <div className="w-20 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
-     </div>
-   </div>
- </div>
-</section>
+      
 
       {/* Why Choose Us */}
       <section className="section section-alt">
