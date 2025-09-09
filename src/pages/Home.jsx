@@ -5,8 +5,22 @@ export default function Home() {
     name: "",
     email: "",
     phone: "",
+    packageType: "featured",
+    selectedPackage: "",
+    customItems: [],
     message: ""
   });
+
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
+
+  // Hero background images that rotate
+  const heroImages = [
+    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&h=1080&fit=crop",
+    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=1080&fit=crop",
+    "https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=1920&h=1080&fit=crop",
+    "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1920&h=1080&fit=crop",
+    "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=1920&h=1080&fit=crop"
+  ];
 
   const [reviews, setReviews] = useState([
     {
@@ -40,6 +54,18 @@ export default function Home() {
 
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
+  // Sample menu items for customized packages
+  const menuItems = [
+    { id: 1, name: "Grilled Salmon", category: "Main Course", price: 28 },
+    { id: 2, name: "Beef Wellington", category: "Main Course", price: 45 },
+    { id: 3, name: "Truffle Risotto", category: "Main Course", price: 32 },
+    { id: 4, name: "Caesar Salad", category: "Appetizer", price: 16 },
+    { id: 5, name: "Lobster Bisque", category: "Appetizer", price: 18 },
+    { id: 6, name: "Chocolate Soufflé", category: "Dessert", price: 14 },
+    { id: 7, name: "Crème Brûlée", category: "Dessert", price: 12 },
+    { id: 8, name: "Wine Pairing", category: "Beverage", price: 25 }
+  ];
+
   const featuredPackages = [
     {
       id: 1,
@@ -51,16 +77,6 @@ export default function Home() {
       badge: "Most Popular",
       features: ["7 Courses", "Wine Pairing", "Seasonal Ingredients", "Chef's Table Experience"]
     },
-    /*{
-      id: 2,
-      name: "Romantic Evening",
-      price: "$95",
-      originalPrice: "$120",
-      description: "Perfect for special occasions with candlelit ambiance, premium selections, and personalized service",
-      image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop",
-      badge: "Bestseller",
-      features: ["Private Table", "Complimentary Champagne", "Rose Petals", "Dessert Surprise"]
-    },*/
     {
       id: 2,
       name: "Business Lunch Elite",
@@ -90,6 +106,14 @@ export default function Home() {
     { icon: "🍽️", number: "50K+", label: "Happy Customers" }
   ];
 
+  // Hero image carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Testimonial carousel
   useEffect(() => {
     const interval = setInterval(() => {
@@ -100,13 +124,20 @@ export default function Home() {
 
   const handleInquirySubmit = (e) => {
     e.preventDefault();
-    // Add loading state
     const button = e.target.querySelector('button[type="submit"]');
     button.classList.add('loading');
     
     setTimeout(() => {
-      alert("Thank you for your inquiry! Our team will contact you within 2 hours.");
-      setInquiry({ name: "", email: "", phone: "", message: "" });
+      alert("Thank you for your order inquiry! Our team will contact you within 30 minutes to confirm your reservation.");
+      setInquiry({ 
+        name: "", 
+        email: "", 
+        phone: "", 
+        packageType: "featured",
+        selectedPackage: "",
+        customItems: [],
+        message: "" 
+      });
       button.classList.remove('loading');
     }, 1500);
   };
@@ -125,6 +156,23 @@ export default function Home() {
     }
   };
 
+  const handleCustomItemToggle = (itemId) => {
+    setInquiry(prev => ({
+      ...prev,
+      customItems: prev.customItems.includes(itemId)
+        ? prev.customItems.filter(id => id !== itemId)
+        : [...prev.customItems, itemId]
+    }));
+  };
+
+  const getSelectedCustomItems = () => {
+    return menuItems.filter(item => inquiry.customItems.includes(item.id));
+  };
+
+  const getTotalCustomPrice = () => {
+    return getSelectedCustomItems().reduce((total, item) => total + item.price, 0);
+  };
+
   const renderStars = (rating) => {
     return Array(5).fill(0).map((_, i) => (
       <span key={i} className={i < rating ? "text-yellow-400" : "text-gray-300"}>⭐</span>
@@ -133,8 +181,16 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="hero-section">
+      {/* Hero Section with Rotating Images */}
+      <section 
+        className="hero-section"
+        style={{
+          backgroundImage: `linear-gradient(135deg, rgba(26, 54, 54, 0.4) 0%, rgba(45, 90, 90, 0.3) 100%), url('${heroImages[currentHeroImage]}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          transition: 'background-image 1s ease-in-out'
+        }}
+      >
         <div className="hero-content">
           <h1 className="display-1 hero-title">
             Culinary Excellence<br />
@@ -144,12 +200,210 @@ export default function Home() {
             Experience the perfect harmony of innovative cuisine, elegant ambiance, 
             and exceptional service in the heart of the city
           </p>
-          <a href="/menu" className="cta-button">
-            <span>Discover Our Menu</span>
+          <a href="#order-now" className="cta-button">
+            <span>Order Now</span>
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+            </svg>
+          </a> 
+          <a href="menu" className="cta-button">
+            <span>Discover Menu</span>
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
               <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
             </svg>
           </a>
+        </div>
+        
+        {/* Hero Image Indicators */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentHeroImage(index)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentHeroImage ? 'bg-white w-6' : 'bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Order/Inquiry Section - Moved to Top */}
+      <section id="order-now" className="section bg-gradient-to-br from-green-50 to-blue-50" style={{paddingTop: '6rem', paddingBottom: '6rem'}}>
+        <div className="container">
+          <div className="section-header">
+            <h2 className="heading-1 section-title">Place Your Order</h2>
+            <p className="section-subtitle">
+              Ready to experience culinary excellence? Choose from our featured packages or create your own customized dining experience.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="form-premium">
+              <form onSubmit={handleInquirySubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="form-group">
+                    <label className="form-label">Full Name *</label>
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="Your full name"
+                      value={inquiry.name}
+                      onChange={(e) => setInquiry({ ...inquiry, name: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label">Email Address *</label>
+                    <input
+                      type="email"
+                      className="form-input"
+                      placeholder="your.email@example.com"
+                      value={inquiry.email}
+                      onChange={(e) => setInquiry({ ...inquiry, email: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <label className="form-label">Phone Number *</label>
+                  <input
+                    type="tel"
+                    className="form-input"
+                    placeholder="Your phone number"
+                    value={inquiry.phone}
+                    onChange={(e) => setInquiry({ ...inquiry, phone: e.target.value })}
+                    required
+                  />
+                </div>
+
+                {/* Package Type Selection */}
+                <div className="form-group">
+                  <label className="form-label">Package Type *</label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <label className={`p-4 border-2 rounded-xl cursor-pointer transition-all ${
+                      inquiry.packageType === 'featured' ? 'border-green-600 bg-green-50' : 'border-gray-200'
+                    }`}>
+                      <input
+                        type="radio"
+                        name="packageType"
+                        value="featured"
+                        checked={inquiry.packageType === 'featured'}
+                        onChange={(e) => setInquiry({ ...inquiry, packageType: e.target.value, selectedPackage: "", customItems: [] })}
+                        className="sr-only"
+                      />
+                      <div className="text-center">
+                        <div className="text-2xl mb-2">🍽️</div>
+                        <div className="font-bold">Featured Packages</div>
+                        <div className="text-sm text-gray-600">Choose from our curated experiences</div>
+                      </div>
+                    </label>
+                    
+                    <label className={`p-4 border-2 rounded-xl cursor-pointer transition-all ${
+                      inquiry.packageType === 'custom' ? 'border-green-600 bg-green-50' : 'border-gray-200'
+                    }`}>
+                      <input
+                        type="radio"
+                        name="packageType"
+                        value="custom"
+                        checked={inquiry.packageType === 'custom'}
+                        onChange={(e) => setInquiry({ ...inquiry, packageType: e.target.value, selectedPackage: "", customItems: [] })}
+                        className="sr-only"
+                      />
+                      <div className="text-center">
+                        <div className="text-2xl mb-2">🎨</div>
+                        <div className="font-bold">Custom Package</div>
+                        <div className="text-sm text-gray-600">Build your own dining experience</div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Featured Package Selection */}
+                {inquiry.packageType === 'featured' && (
+                  <div className="form-group">
+                    <label className="form-label">Select Package *</label>
+                    <select
+                      className="form-select"
+                      value={inquiry.selectedPackage}
+                      onChange={(e) => setInquiry({ ...inquiry, selectedPackage: e.target.value })}
+                      required
+                    >
+                      <option value="">Choose a package...</option>
+                      {featuredPackages.map((pkg) => (
+                        <option key={pkg.id} value={pkg.name}>
+                          {pkg.name} - {pkg.price}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {/* Custom Package Selection */}
+                {inquiry.packageType === 'custom' && (
+                  <div className="form-group">
+                    <label className="form-label">Select Items for Custom Package *</label>
+                    <div className="bg-gray-50 rounded-xl p-4 max-h-60 overflow-y-auto">
+                      {['Appetizer', 'Main Course', 'Dessert', 'Beverage'].map(category => (
+                        <div key={category} className="mb-4">
+                          <h4 className="font-bold text-green-800 mb-2">{category}</h4>
+                          {menuItems.filter(item => item.category === category).map(item => (
+                            <label key={item.id} className="flex items-center gap-3 p-2 hover:bg-white rounded-lg cursor-pointer">
+                              <input
+                                type="checkbox"
+                                checked={inquiry.customItems.includes(item.id)}
+                                onChange={() => handleCustomItemToggle(item.id)}
+                                className="w-4 h-4 text-green-600 rounded"
+                              />
+                              <span className="flex-1">{item.name}</span>
+                              <span className="text-green-600 font-semibold">${item.price}</span>
+                            </label>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {inquiry.customItems.length > 0 && (
+                      <div className="mt-4 p-4 bg-green-50 rounded-xl">
+                        <h4 className="font-bold text-green-800 mb-2">Selected Items:</h4>
+                        <div className="space-y-1">
+                          {getSelectedCustomItems().map(item => (
+                            <div key={item.id} className="flex justify-between text-sm">
+                              <span>{item.name}</span>
+                              <span>${item.price}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="border-t mt-2 pt-2 flex justify-between font-bold text-green-800">
+                          <span>Total:</span>
+                          <span>${getTotalCustomPrice()}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+                
+                <div className="form-group">
+                  <label className="form-label">Special Requests / Message</label>
+                  <textarea
+                    className="form-textarea"
+                    placeholder="Any special dietary requirements, celebration details, or specific requests..."
+                    value={inquiry.message}
+                    onChange={(e) => setInquiry({ ...inquiry, message: e.target.value })}
+                  />
+                </div>
+                
+                <button type="submit" className="button-primary w-full text-lg py-4">
+                  <span>🍽️ Confirm Order</span>
+                </button>
+
+                <p className="text-center text-sm text-gray-600">
+                  Our team will contact you within 30 minutes to confirm your reservation and discuss any special arrangements.
+                </p>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -240,7 +494,7 @@ export default function Home() {
                 <div className="card-body">
                   <h3 className="card-title">{pkg.name}</h3>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-2xl font-bold text-[var(--accent-gold)]">{pkg.price}</span>
+                    <span className="text-2xl font-bold text-green-600">{pkg.price}</span>
                     {pkg.originalPrice && (
                       <span className="text-lg text-gray-400 line-through">{pkg.originalPrice}</span>
                     )}
@@ -249,12 +503,12 @@ export default function Home() {
                   <div className="grid grid-cols-2 gap-2 mb-4">
                     {pkg.features.map((feature, index) => (
                       <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                        <span className="text-[var(--accent-gold)]">✓</span>
+                        <span className="text-green-600">✓</span>
                         {feature}
                       </div>
                     ))}
                   </div>
-                  <button className="button-primary">Reserve Now</button>
+                  <a href="#order-now" className="button-primary">Order Now</a>
                 </div>
               </div>
             ))}
@@ -289,21 +543,11 @@ export default function Home() {
                 title: "Elegant Atmosphere",
                 description: "Sophisticated ambiance with carefully curated design elements that enhance every dining experience"
               },
-              /*{
-                icon: "🍷",
-                title: "Curated Wine Selection",
-                description: "Extensive wine cellar featuring rare vintages and perfect pairings selected by our sommelier"
-              },*/
               {
                 icon: "⚡",
                 title: "Impeccable Service",
                 description: "White-glove service with attention to every detail, ensuring a seamless and memorable experience"
-              },
-              /*{
-                icon: "🎭",
-                title: "Exclusive Events",
-                description: "Private dining experiences, wine tastings, and special chef's table events for discerning guests"
-              }*/
+              }
             ].map((feature, index) => (
               <div key={index} className="feature-box">
                 <span className="feature-icon">{feature.icon}</span>
@@ -327,7 +571,7 @@ export default function Home() {
 
           {/* Featured Testimonial */}
           <div className="max-w-4xl mx-auto mb-12">
-            <div className="glassmorphism p-8 rounded-3xl text-center">
+            <div className="glassmorphism p-8 rounded-3xl text-center bg-white/80">
               <div className="flex justify-center mb-6">
                 {renderStars(reviews[currentTestimonial].rating)}
               </div>
@@ -338,10 +582,10 @@ export default function Home() {
                 <img 
                   src={reviews[currentTestimonial].image} 
                   alt={reviews[currentTestimonial].name}
-                  className="w-16 h-16 rounded-full object-cover border-4 border-[var(--accent-gold)]"
+                  className="w-16 h-16 rounded-full object-cover border-4 border-green-500"
                 />
                 <div className="text-left">
-                  <div className="font-bold text-[var(--primary-dark)]">{reviews[currentTestimonial].name}</div>
+                  <div className="font-bold text-gray-800">{reviews[currentTestimonial].name}</div>
                   <div className="text-sm text-gray-600">Verified Guest</div>
                 </div>
               </div>
@@ -355,7 +599,7 @@ export default function Home() {
                 key={index}
                 onClick={() => setCurrentTestimonial(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentTestimonial ? 'bg-[var(--accent-gold)] w-8' : 'bg-gray-300'
+                  index === currentTestimonial ? 'bg-green-600 w-8' : 'bg-gray-300'
                 }`}
               />
             ))}
@@ -412,76 +656,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Inquiry Section */}
-      <section className="section section-alt">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="heading-1 section-title">Get In Touch</h2>
-            <p className="section-subtitle">
-              Have questions about our menu, want to make a reservation, or planning a special event? 
-              We're here to help create your perfect dining experience.
-            </p>
-          </div>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="form-premium">
-              <form onSubmit={handleInquirySubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="form-group">
-                    <label className="form-label">Full Name</label>
-                    <input
-                      type="text"
-                      className="form-input"
-                      placeholder="Your full name"
-                      value={inquiry.name}
-                      onChange={(e) => setInquiry({ ...inquiry, name: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Email Address</label>
-                    <input
-                      type="email"
-                      className="form-input"
-                      placeholder="your.email@example.com"
-                      value={inquiry.email}
-                      onChange={(e) => setInquiry({ ...inquiry, email: e.target.value })}
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="form-group">
-                  <label className="form-label">Phone Number</label>
-                  <input
-                    type="tel"
-                    className="form-input"
-                    placeholder="Your phone number"
-                    value={inquiry.phone}
-                    onChange={(e) => setInquiry({ ...inquiry, phone: e.target.value })}
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label className="form-label">Your Message</label>
-                  <textarea
-                    className="form-textarea"
-                    placeholder="Tell us about your inquiry, special requests, or how we can help you..."
-                    value={inquiry.message}
-                    onChange={(e) => setInquiry({ ...inquiry, message: e.target.value })}
-                    required
-                  />
-                </div>
-                
-                <button type="submit" className="button-primary w-full">
-                  Send Inquiry
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Final CTA */}
       <section className="section">
         <div className="container">
@@ -492,8 +666,8 @@ export default function Home() {
               elegant ambiance, and world-class service.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/menu" className="button-primary px-8 py-4">
-                <span>Explore Our Menu</span>
+              <a href="#order-now" className="button-primary px-8 py-4">
+                <span>Place Your Order</span>
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
                 </svg>
