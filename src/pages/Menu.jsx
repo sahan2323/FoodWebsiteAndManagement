@@ -183,53 +183,107 @@ export default function Menu() {
   return (
     <div className="min-h-screen pt-24">
 
-      {/* Cuisine Selector */}
-      <section className="section bg-white py-6">
-        <div className="container flex flex-wrap justify-center gap-4">
-          {cuisines.map(cuisine => (
-            <button
-              key={cuisine.id}
-              onClick={() => setSelectedCuisine(cuisine.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                selectedCuisine === cuisine.id
-                  ? 'bg-gradient-to-r from-[var(--primary-green)] to-[var(--secondary-green)] text-white shadow-lg'
-                  : 'bg-white text-[var(--primary-dark)] border-2 border-[var(--accent-gold)]/20 hover:border-[var(--accent-gold)]'
-              }`}
-            >
-              <span>{cuisine.icon}</span>
-              {cuisine.name}
-            </button>
-          ))}
+      {/* Enhanced Header Section */}
+      <section className="section bg-gradient-to-br from-gray-50 to-white">
+        <div className="container text-center">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="heading-1 mb-6" style={{color: 'var(--primary-dark)'}}>
+              Our Exquisite Menu
+            </h1>
+            <p className="body-large mb-8 leading-relaxed" style={{color: 'var(--text-light)'}}>
+              Discover a world of flavors crafted with passion and served with excellence. 
+              Each dish tells a story of tradition, innovation, and culinary artistry.
+            </p>
+            <div className="flex flex-wrap justify-center gap-6 mb-8">
+              <div className="bg-white px-6 py-4 rounded-2xl shadow-lg border" style={{borderColor: 'rgba(201, 169, 110, 0.2)'}}>
+                <span className="text-lg font-semibold" style={{color: 'var(--primary-green)'}}>{menuItems.flatMap(g => g.items).length} Signature Dishes</span>
+              </div>
+              <div className="bg-white px-6 py-4 rounded-2xl shadow-lg border" style={{borderColor: 'rgba(201, 169, 110, 0.2)'}}>
+                <span className="text-lg font-semibold" style={{color: 'var(--primary-green)'}}>{cuisines.length - 1} Cuisine Types</span>
+              </div>
+              <div className="bg-white px-6 py-4 rounded-2xl shadow-lg border" style={{borderColor: 'rgba(201, 169, 110, 0.2)'}}>
+                <span className="text-lg font-semibold" style={{color: 'var(--primary-green)'}}>Chef's Specials</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Filters & Search (same as before) */}
-      <section className="section" style={{paddingTop: '1rem', paddingBottom: '2rem'}}>
+      {/* Enhanced Cuisine Selector */}
+      <section className="bg-white py-8" style={{boxShadow: 'var(--shadow-light)', borderBottom: '1px solid rgba(201, 169, 110, 0.1)'}}>
         <div className="container">
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-[var(--accent-gold)]/10 mb-12">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-4" style={{color: 'var(--primary-dark)'}}>Choose Your Cuisine</h2>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            {cuisines.map(cuisine => (
+              <button
+                key={cuisine.id}
+                onClick={() => setSelectedCuisine(cuisine.id)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                  selectedCuisine === cuisine.id
+                    ? 'text-white shadow-lg'
+                    : 'bg-white border-2 hover:shadow-md'
+                }`}
+                style={{
+                  background: selectedCuisine === cuisine.id ? 'var(--gradient-primary)' : 'white',
+                  color: selectedCuisine === cuisine.id ? 'white' : 'var(--primary-dark)',
+                  borderColor: selectedCuisine === cuisine.id ? 'transparent' : 'rgba(201, 169, 110, 0.3)',
+                }}
+                onMouseEnter={(e) => {
+                  if (selectedCuisine !== cuisine.id) {
+                    e.target.style.borderColor = 'var(--accent-gold)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (selectedCuisine !== cuisine.id) {
+                    e.target.style.borderColor = 'rgba(201, 169, 110, 0.3)';
+                  }
+                }}
+              >
+                <span>{cuisine.icon}</span>
+                <span>{cuisine.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Search */}
+      {/* Enhanced Filters & Search */}
+      <section className="section-alt" style={{paddingTop: '3rem', paddingBottom: '3rem'}}>
+        <div className="container">
+          <div className="form-premium">
+            
+            {/* Section Header */}
+            <div className="text-center mb-8">
+              <h2 className="heading-2 mb-4" style={{color: 'var(--primary-dark)'}}>Find Your Perfect Dish</h2>
+              <p className="max-w-2xl mx-auto" style={{color: 'var(--text-light)'}}>
+                Filter by category, dietary preferences, or search for something specific
+              </p>
+            </div>
+
+            {/* Enhanced Search */}
             <div className="mb-8">
               <div className="relative max-w-md mx-auto">
+                <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-xl">🔍</span>
                 <input
                   type="text"
                   placeholder="Search dishes..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:border-[var(--accent-gold)] focus:outline-none transition-all duration-300 text-lg"
+                  className="form-input pl-12"
                 />
-                <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-2xl">🔍</span>
               </div>
             </div>
 
-            {/* Sort, Dietary, Results */}
+            {/* Enhanced Sort, Dietary, Results */}
             <div className="grid md:grid-cols-3 gap-6">
-              <div>
-                <label className="block text-sm font-semibold text-[var(--primary-dark)] mb-3">Sort By</label>
+              <div className="form-group">
+                <label className="form-label">Sort By</label>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-[var(--accent-gold)] focus:outline-none"
+                  className="form-select"
                 >
                   <option value="name">Name (A-Z)</option>
                   <option value="price-low">Price (Low to High)</option>
@@ -237,12 +291,12 @@ export default function Menu() {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-[var(--primary-dark)] mb-3">Dietary</label>
+              <div className="form-group">
+                <label className="form-label">Dietary</label>
                 <select
                   value={filterBy}
                   onChange={(e) => setFilterBy(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-[var(--accent-gold)] focus:outline-none"
+                  className="form-select"
                 >
                   {dietaryFilters.map(filter => (
                     <option key={filter.id} value={filter.id}>{filter.name}</option>
@@ -250,26 +304,48 @@ export default function Menu() {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-[var(--primary-dark)] mb-3">Results</label>
-                <div className="p-3 bg-gray-100 rounded-xl text-center font-semibold">
-                  {sortedItems.length} dish{sortedItems.length !== 1 ? 'es' : ''} found
+              <div className="form-group">
+                <label className="form-label">Results</label>
+                <div className="p-3 rounded-xl text-center font-semibold border" style={{
+                  background: 'linear-gradient(to right, rgba(201, 169, 110, 0.1), rgba(45, 90, 90, 0.1))',
+                  borderColor: 'rgba(201, 169, 110, 0.2)',
+                  color: 'var(--primary-green)'
+                }}>
+                  <div className="text-2xl font-bold">{sortedItems.length}</div>
+                  <div className="text-sm" style={{color: 'var(--text-light)'}}>
+                    dish{sortedItems.length !== 1 ? 'es' : ''} found
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Category Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-4 mt-12">
             {categories.map(category => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center gap-3 px-6 py-4 rounded-full font-semibold transition-all duration-300 ${
+                className={`flex items-center gap-3 px-6 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
                   selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-[var(--primary-green)] to-[var(--secondary-green)] text-white shadow-lg transform scale-105'
-                    : 'bg-white text-[var(--primary-dark)] border-2 border-[var(--accent-gold)]/20 hover:border-[var(--accent-gold)] hover:shadow-lg'
+                    ? 'text-white shadow-lg scale-105'
+                    : 'bg-white border-2 hover:shadow-lg'
                 }`}
+                style={{
+                  background: selectedCategory === category.id ? 'var(--gradient-primary)' : 'white',
+                  color: selectedCategory === category.id ? 'white' : 'var(--primary-dark)',
+                  borderColor: selectedCategory === category.id ? 'transparent' : 'rgba(201, 169, 110, 0.2)',
+                }}
+                onMouseEnter={(e) => {
+                  if (selectedCategory !== category.id) {
+                    e.target.style.borderColor = 'var(--accent-gold)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (selectedCategory !== category.id) {
+                    e.target.style.borderColor = 'rgba(201, 169, 110, 0.2)';
+                  }
+                }}
               >
                 {category.name}
               </button>
@@ -289,7 +365,7 @@ export default function Menu() {
 
                   {/* Price */}
                   <div className="absolute top-4 right-4">
-                    <div className="bg-[var(--accent-gold)] text-[var(--primary-dark)] px-4 py-2 rounded-full font-bold text-lg shadow-lg">
+                    <div className="card-overlay">
                       ${item.price}
                     </div>
                   </div>
@@ -322,7 +398,7 @@ export default function Menu() {
 
                   <div className="flex items-center justify-between mt-6">
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-[var(--accent-gold)]">
+                      <div className="text-3xl font-bold" style={{color: 'var(--accent-gold)'}}>
                         ${item.price}
                       </div>
                     </div>
@@ -342,8 +418,8 @@ export default function Menu() {
           {sortedItems.length === 0 && (
             <div className="text-center py-16">
               <div className="text-6xl mb-4">🔍</div>
-              <h3 className="heading-2 text-[var(--primary-dark)] mb-4">No dishes found</h3>
-              <p className="text-gray-600 mb-6">Try adjusting your filters or search terms</p>
+              <h3 className="heading-2 mb-4" style={{color: 'var(--primary-dark)'}}>No dishes found</h3>
+              <p className="mb-6" style={{color: 'var(--text-light)'}}>Try adjusting your filters or search terms</p>
               <button
                 onClick={() => {
                   setSearchTerm("");
