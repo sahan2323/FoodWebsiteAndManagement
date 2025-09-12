@@ -64,10 +64,26 @@ export default function Menu() {
       ]
     },
     {
-      cuisine: "Thai",
+      cuisine: "American",
       items: [
         {
           id: 5,
+          name: "Classic Tuna Salad",
+          price: 10,
+          category: "salads",
+          description: "Creamy tuna mixed with vegan mayo, Dijon mustard and a touch of garlic and spice.",
+          image: "https://images.unsplash.com/photo-1605522018064-26d9a2a441a6?w=500&h=400&fit=crop",
+          dietary: ["non-veg"],
+          chef_special: false,
+          spice_level: 1
+        }
+      ]
+    },
+    {
+      cuisine: "Thai",
+      items: [
+        {
+          id: 6,
           name: "Tom Yum Soup",
           price: 10,
           category: "soups",
@@ -79,13 +95,16 @@ export default function Menu() {
         }
       ]
     }
+    
   ];
 
   const cuisines = [
     { id: "all", name: "All Cuisines", icon: "🌍" },
     { id: "Sri Lankan", name: "Sri Lankan", icon: "🇱🇰" },
     { id: "Indian", name: "Indian", icon: "🇮🇳" },
-    { id: "Thai", name: "Thai", icon: "🇹🇭" }
+    { id: "American", name: "American", icon: "🇺🇸" },
+    { id: "Thai", name: "Thai", icon: "🇹🇭" },
+    { id: "Chinese", name: "Chinese", icon: "🇨🇳" }
   ];
 
   const categories = [
@@ -95,6 +114,7 @@ export default function Menu() {
     { id: "veg", name: "Vegetarian" },
     { id: "non-veg", name: "Non-Veg" },
     { id: "curries", name: "Curries" },
+    { id: "salads", name: "Salads" },
     { id: "noodles", name: "Noodles" },
     { id: "desserts", name: "Desserts" },
     { id: "beverages", name: "Beverages" }
