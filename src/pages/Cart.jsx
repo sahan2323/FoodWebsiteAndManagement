@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
+import { CartContext } from "../components/CartContext";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([]);
+  const { cart, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
   const [promoCode, setPromoCode] = useState("");
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [discount, setDiscount] = useState(0);
@@ -9,43 +10,7 @@ export default function Cart() {
   const [deliveryOption, setDeliveryOption] = useState("standard");
   const [paymentStep, setPaymentStep] = useState(1);
 
-  // Sample cart items with enhanced data
-  useEffect(() => {
-    const sampleItems = [
-      {
-        id: 1,
-        name: "Truffle Arancini",
-        price: 18,
-        originalPrice: 22,
-        quantity: 2,
-        image: "https://images.unsplash.com/photo-1559847844-d5c65715f3e5?w=300&h=200&fit=crop",
-        customizations: ["Extra truffle shavings", "Gluten-free option"],
-        category: "Appetizer",
-        chef_special: true
-      },
-      {
-        id: 2,
-        name: "Dry-Aged Ribeye",
-        price: 65,
-        quantity: 1,
-        image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=300&h=200&fit=crop",
-        customizations: ["Medium rare", "Extra bone marrow"],
-        category: "Main Course",
-        chef_special: true
-      },
-      {
-        id: 3,
-        name: "Wine Pairing Flight",
-        price: 35,
-        quantity: 1,
-        image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=300&h=200&fit=crop",
-        customizations: ["Sommelier's selection"],
-        category: "Beverages",
-        chef_special: false
-      }
-    ];
-    setCartItems(sampleItems);
-  }, []);
+
 
   const promoCodesDb = {
     "WELCOME15": { discount: 15, description: "Welcome offer - 15% off" },
@@ -61,19 +26,7 @@ export default function Cart() {
     { id: "premium", name: "White Glove Service", time: "60 minutes", price: 15, icon: "🎩", note: "Setup included" }
   ];
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity === 0) {
-      removeItem(id);
-    } else {
-      setCartItems(cartItems.map(item => 
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      ));
-    }
-  };
 
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
 
   const applyPromoCode = () => {
     const code = promoCode.toUpperCase();
@@ -92,12 +45,12 @@ export default function Cart() {
   };
 
   // Calculations
-  const subtotal = cartItems.reduce((total, item) => {
+  const subtotal = cart.reduce((total, item) => {
     const itemPrice = item.originalPrice || item.price;
     return total + (itemPrice * item.quantity);
   }, 0);
   
-  const savings = cartItems.reduce((total, item) => {
+  const savings = cart.reduce((total, item) => {
     if (item.originalPrice) {
       return total + ((item.originalPrice - item.price) * item.quantity);
     }
@@ -115,7 +68,7 @@ export default function Cart() {
     await new Promise(resolve => setTimeout(resolve, 3000));
     
     alert("Order placed successfully! 🎉\n\nOrder confirmation sent to your email. Our team will contact you shortly with preparation updates.");
-    setCartItems([]);
+    clearCart();
     setAppliedPromo(null);
     setDiscount(0);
     setPromoCode("");
@@ -123,7 +76,7 @@ export default function Cart() {
     setPaymentStep(1);
   };
 
-  if (cartItems.length === 0) {
+  if (cart.length === 0) {
     return (
       <div className="min-h-screen pt-24 flex items-center">
         <div className="container mx-auto text-center py-16">
@@ -190,7 +143,7 @@ export default function Cart() {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-6">
               <div className="flex justify-between items-center mb-8">
-                <h2 className="heading-2 text-[var(--primary-dark)]">Order Items ({cartItems.length})</h2>
+                <h2 className="heading-2 text-[var(--primary-dark)]">Order Items ({cart.length})</h2>
                 {savings > 0 && (
                   <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
                     💚 You're saving ${savings.toFixed(2)}
@@ -198,7 +151,7 @@ export default function Cart() {
                 )}
               </div>
 
-              {cartItems.map((item) => (
+              {cart.map((item) => (
                 <div key={item.id} className="card-premium">
                   <div className="p-6">
                     <div className="flex gap-6">
@@ -224,7 +177,7 @@ export default function Cart() {
                             <div className="text-sm text-gray-500 mb-2">{item.category}</div>
                           </div>
                           <button
-                            onClick={() => removeItem(item.id)}
+              onClick={() => removeFromCart(item.id)}
                             className="text-gray-400 hover:text-red-500 text-2xl font-bold transition-colors duration-200 w-8 h-8 flex items-center justify-center"
                             title="Remove item"
                           >
@@ -259,7 +212,7 @@ export default function Cart() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               className="w-12 h-12 bg-gray-100 rounded-full font-bold text-[var(--primary-dark)] hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-200"
                             >
                               −
@@ -268,7 +221,7 @@ export default function Cart() {
                               {item.quantity}
                             </span>
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               className="w-12 h-12 bg-gray-100 rounded-full font-bold text-[var(--primary-dark)] hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-200"
                             >
                               +

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "../components/CartContext";
 
 export default function Menu() {
-  const [cart, setCart] = useState([]);
+  const { addToCart } = useContext(CartContext);
   const [selectedCuisine, setSelectedCuisine] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -134,32 +135,7 @@ export default function Menu() {
     }
   });
 
-  const addToCart = (item) => {
-    const existingItem = cart.find(cartItem => cartItem.id === item.id);
-    if (existingItem) {
-      setCart(cart.map(cartItem =>
-        cartItem.id === item.id
-          ? { ...cartItem, quantity: cartItem.quantity + 1 }
-          : cartItem
-      ));
-    } else {
-      setCart([...cart, { ...item, quantity: 1 }]);
-    }
 
-    const button = document.querySelector(`[data-item-id="${item.id}"]`);
-    if (button) {
-      button.innerHTML = "Added! ✓";
-      button.style.background = "linear-gradient(45deg, #10B981, #059669)";
-      setTimeout(() => {
-        button.innerHTML = "Add to Cart";
-        button.style.background = "";
-      }, 1500);
-    }
-  };
-
-  const getTotalItems = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0);
-  };
 
   const renderSpiceLevel = (level) => {
     return Array(3).fill(0).map((_, i) => (
