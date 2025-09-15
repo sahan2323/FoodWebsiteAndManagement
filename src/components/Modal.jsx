@@ -5,12 +5,15 @@ export default function Modal({ isOpen, onClose, children }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+      className="fixed inset-0 bg-black bg-opacity-50 z-50"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative"
+        className="absolute right-0 top-0 bg-white shadow-lg w-96 h-full p-6 overflow-y-auto transform transition-transform duration-300 ease-in-out"
         onClick={(e) => e.stopPropagation()}
+        style={{
+          transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+        }}
       >
         <button
           className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
