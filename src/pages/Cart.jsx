@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
+import { CartContext } from "../components/CartContext";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([]);
+  const { cart, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
   const [promoCode, setPromoCode] = useState("");
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [discount, setDiscount] = useState(0);
@@ -9,43 +10,7 @@ export default function Cart() {
   const [deliveryOption, setDeliveryOption] = useState("standard");
   const [paymentStep, setPaymentStep] = useState(1);
 
-  // Sample cart items with enhanced data
-  useEffect(() => {
-    const sampleItems = [
-      {
-        id: 1,
-        name: "Truffle Arancini",
-        price: 18,
-        originalPrice: 22,
-        quantity: 2,
-        image: "https://images.unsplash.com/photo-1559847844-d5c65715f3e5?w=300&h=200&fit=crop",
-        customizations: ["Extra truffle shavings", "Gluten-free option"],
-        category: "Appetizer",
-        chef_special: true
-      },
-      {
-        id: 2,
-        name: "Dry-Aged Ribeye",
-        price: 65,
-        quantity: 1,
-        image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=300&h=200&fit=crop",
-        customizations: ["Medium rare", "Extra bone marrow"],
-        category: "Main Course",
-        chef_special: true
-      },
-      {
-        id: 3,
-        name: "Wine Pairing Flight",
-        price: 35,
-        quantity: 1,
-        image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=300&h=200&fit=crop",
-        customizations: ["Sommelier's selection"],
-        category: "Beverages",
-        chef_special: false
-      }
-    ];
-    setCartItems(sampleItems);
-  }, []);
+
 
   const promoCodesDb = {
     "WELCOME15": { discount: 15, description: "Welcome offer - 15% off" },
@@ -61,19 +26,7 @@ export default function Cart() {
     { id: "premium", name: "White Glove Service", time: "60 minutes", price: 15, icon: "🎩", note: "Setup included" }
   ];
 
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity === 0) {
-      removeItem(id);
-    } else {
-      setCartItems(cartItems.map(item => 
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      ));
-    }
-  };
 
-  const removeItem = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
 
   const applyPromoCode = () => {
     const code = promoCode.toUpperCase();
@@ -92,12 +45,12 @@ export default function Cart() {
   };
 
   // Calculations
-  const subtotal = cartItems.reduce((total, item) => {
+  const subtotal = cart.reduce((total, item) => {
     const itemPrice = item.originalPrice || item.price;
     return total + (itemPrice * item.quantity);
   }, 0);
   
-  const savings = cartItems.reduce((total, item) => {
+  const savings = cart.reduce((total, item) => {
     if (item.originalPrice) {
       return total + ((item.originalPrice - item.price) * item.quantity);
     }
@@ -115,7 +68,7 @@ export default function Cart() {
     await new Promise(resolve => setTimeout(resolve, 3000));
     
     alert("Order placed successfully! 🎉\n\nOrder confirmation sent to your email. Our team will contact you shortly with preparation updates.");
-    setCartItems([]);
+    clearCart();
     setAppliedPromo(null);
     setDiscount(0);
     setPromoCode("");
@@ -123,11 +76,14 @@ export default function Cart() {
     setPaymentStep(1);
   };
 
-  if (cartItems.length === 0) {
+  if (cart.length === 0) {
     return (
       <div className="min-h-screen pt-24 flex items-center">
         <div className="container mx-auto text-center py-16">
-          <div className="text-9xl mb-8">🛒</div>
+          <div className="relative mb-8">
+            <div className="text-9xl animate-bounce">🛒</div>
+            <div className="absolute -top-4 -right-4 text-4xl animate-pulse">✨</div>
+          </div>
           <h1 className="display-2 text-[var(--primary-dark)] mb-6">Your Cart is Empty</h1>
           <p className="body-large text-gray-600 mb-12 max-w-2xl mx-auto">
             Discover our exquisite collection of culinary masterpieces and start building your perfect meal.
@@ -135,18 +91,35 @@ export default function Cart() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/menu"
-              className="button-primary px-8 py-4 inline-flex items-center justify-center gap-3"
+              className="button-primary px-8 py-4 inline-flex items-center justify-center gap-3 transform hover:scale-105 transition-transform duration-200 shadow-lg hover:shadow-xl"
             >
-              <span>🍽️</span>
+              <span className="text-xl">🍽️</span>
               <span>Explore Our Menu</span>
             </a>
             <a
               href="/services"
-              className="button-secondary px-8 py-4 inline-flex items-center justify-center gap-3"
+              className="button-secondary px-8 py-4 inline-flex items-center justify-center gap-3 transform hover:scale-105 transition-transform duration-200"
             >
-              <span>✨</span>
+              <span className="text-xl">✨</span>
               <span>View Experiences</span>
             </a>
+          </div>
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200">
+              <div className="text-3xl mb-3">👨‍🍳</div>
+              <h3 className="font-semibold text-blue-800 mb-2">Chef Prepared</h3>
+              <p className="text-sm text-blue-600">Fresh ingredients, expert cooking</p>
+            </div>
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200">
+              <div className="text-3xl mb-3">🚚</div>
+              <h3 className="font-semibold text-green-800 mb-2">Fast Delivery</h3>
+              <p className="text-sm text-green-600">Hot and fresh at your doorstep</p>
+            </div>
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl border border-purple-200">
+              <div className="text-3xl mb-3">⭐</div>
+              <h3 className="font-semibold text-purple-800 mb-2">Premium Quality</h3>
+              <p className="text-sm text-purple-600">Only the finest ingredients</p>
+            </div>
           </div>
         </div>
       </div>
@@ -190,7 +163,7 @@ export default function Cart() {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-6">
               <div className="flex justify-between items-center mb-8">
-                <h2 className="heading-2 text-[var(--primary-dark)]">Order Items ({cartItems.length})</h2>
+                <h2 className="heading-2 text-[var(--primary-dark)]">Order Items ({cart.length})</h2>
                 {savings > 0 && (
                   <div className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
                     💚 You're saving ${savings.toFixed(2)}
@@ -198,93 +171,94 @@ export default function Cart() {
                 )}
               </div>
 
-              {cartItems.map((item) => (
-                <div key={item.id} className="card-premium">
-                  <div className="p-6">
-                    <div className="flex gap-6">
-                      <div className="relative">
-                        <img 
-                          src={item.image} 
-                          alt={item.name}
-                          className="w-32 h-32 object-cover rounded-xl"
-                        />
-                        {item.chef_special && (
-                          <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
-                            👨‍🍳 Special
+              {cart.map((item) => (
+                <div key={item.id} className="bg-white rounded-2xl shadow-md p-6 flex gap-6 hover:shadow-xl transition-shadow duration-300">
+                  <div className="relative flex-shrink-0 w-32 h-32 overflow-hidden rounded-xl border border-gray-200">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-110"
+                    />
+                    {item.chef_special && (
+                      <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full font-semibold animate-pulse shadow-lg">
+                        👨‍🍳 Special
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div>
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h3 className="text-2xl font-semibold text-[var(--primary-dark)] mb-1">
+                            {item.name}
+                          </h3>
+                          <div className="text-sm text-gray-500 mb-2 capitalize">{item.category}</div>
+                        </div>
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="text-gray-400 hover:text-red-600 text-3xl font-bold transition-colors duration-200 w-8 h-8 flex items-center justify-center rounded-full"
+                          title="Remove item"
+                          aria-label={`Remove ${item.name} from cart`}
+                        >
+                          ×
+                        </button>
+                      </div>
+                      
+                      <div className="flex items-center gap-6 mb-4">
+                        <div className="text-3xl font-extrabold text-[var(--accent-gold)]">
+                          ${item.price}
+                        </div>
+                        {item.originalPrice && (
+                          <div className="text-lg text-gray-400 line-through">
+                            ${item.originalPrice}
                           </div>
                         )}
                       </div>
                       
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start mb-3">
-                          <div>
-                            <h3 className="heading-2 text-[var(--primary-dark)] mb-1" style={{fontSize: '1.5rem'}}>
-                              {item.name}
-                            </h3>
-                            <div className="text-sm text-gray-500 mb-2">{item.category}</div>
+                      {item.customizations && item.customizations.length > 0 && (
+                        <div className="mb-4">
+                          <p className="text-sm font-semibold text-[var(--primary-dark)] mb-2">Customizations:</p>
+                          <div className="flex flex-wrap gap-2">
+                            {item.customizations.map((custom, index) => (
+                              <span key={index} className="text-xs bg-[var(--bg-cream)] px-3 py-1 rounded-full text-gray-600 border border-[var(--accent-gold)]/30">
+                                {custom}
+                              </span>
+                            ))}
                           </div>
-                          <button
-                            onClick={() => removeItem(item.id)}
-                            className="text-gray-400 hover:text-red-500 text-2xl font-bold transition-colors duration-200 w-8 h-8 flex items-center justify-center"
-                            title="Remove item"
-                          >
-                            ×
-                          </button>
                         </div>
-                        
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="text-3xl font-bold text-[var(--accent-gold)]">
-                            ${item.price}
-                          </div>
-                          {item.originalPrice && (
-                            <div className="text-lg text-gray-400 line-through">
-                              ${item.originalPrice}
-                            </div>
-                          )}
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="w-12 h-12 bg-gray-100 rounded-full font-bold text-[var(--primary-dark)] hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-200 flex items-center justify-center"
+                          aria-label={`Decrease quantity of ${item.name}`}
+                        >
+                          −
+                        </button>
+                        <span className="text-2xl font-bold text-[var(--primary-dark)] min-w-[3rem] text-center">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="w-12 h-12 bg-gray-100 rounded-full font-bold text-[var(--primary-dark)] hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-200 flex items-center justify-center"
+                          aria-label={`Increase quantity of ${item.name}`}
+                        >
+                          +
+                        </button>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-[var(--primary-dark)]">
+                          ${(item.price * item.quantity).toFixed(2)}
                         </div>
-                        
-                        {item.customizations && item.customizations.length > 0 && (
-                          <div className="mb-4">
-                            <p className="text-sm font-semibold text-[var(--primary-dark)] mb-2">Customizations:</p>
-                            <div className="flex flex-wrap gap-2">
-                              {item.customizations.map((custom, index) => (
-                                <span key={index} className="text-xs bg-[var(--bg-cream)] px-3 py-1 rounded-full text-gray-600 border border-[var(--accent-gold)]/20">
-                                  {custom}
-                                </span>
-                              ))}
-                            </div>
+                        {item.originalPrice && (
+                          <div className="text-sm text-gray-400 line-through">
+                            ${(item.originalPrice * item.quantity).toFixed(2)}
                           </div>
                         )}
-                        
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4">
-                            <button
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-12 h-12 bg-gray-100 rounded-full font-bold text-[var(--primary-dark)] hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-200"
-                            >
-                              −
-                            </button>
-                            <span className="text-2xl font-bold text-[var(--primary-dark)] min-w-[3rem] text-center">
-                              {item.quantity}
-                            </span>
-                            <button
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-12 h-12 bg-gray-100 rounded-full font-bold text-[var(--primary-dark)] hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-200"
-                            >
-                              +
-                            </button>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-[var(--primary-dark)]">
-                              ${(item.price * item.quantity).toFixed(2)}
-                            </div>
-                            {item.originalPrice && (
-                              <div className="text-sm text-gray-400 line-through">
-                                ${(item.originalPrice * item.quantity).toFixed(2)}
-                              </div>
-                            )}
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -355,30 +329,39 @@ export default function Cart() {
               <div className="card-premium">
                 <div className="p-6">
                   <h3 className="heading-2 text-[var(--primary-dark)] mb-4" style={{fontSize: '1.25rem'}}>Delivery Options</h3>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {deliveryOptions.map((option) => (
-                      <label key={option.id} className="flex items-start space-x-4 cursor-pointer p-3 rounded-xl hover:bg-[var(--bg-cream)] transition-colors">
-                        <input 
-                          type="radio" 
-                          name="delivery" 
+                      <label key={option.id} className={`flex items-start space-x-4 cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 ${
+                        deliveryOption === option.id
+                          ? 'border-[var(--accent-gold)] bg-gradient-to-r from-[var(--bg-cream)] to-white shadow-lg'
+                          : 'border-gray-200 hover:border-[var(--accent-gold)]/50 hover:bg-gray-50'
+                      }`}>
+                        <input
+                          type="radio"
+                          name="delivery"
                           value={option.id}
                           checked={deliveryOption === option.id}
                           onChange={(e) => setDeliveryOption(e.target.value)}
-                          className="mt-1 text-[var(--accent-gold)]" 
+                          className="mt-1 text-[var(--accent-gold)] w-4 h-4"
                         />
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xl">{option.icon}</span>
-                            <span className="font-semibold">{option.name}</span>
-                            {option.price > 0 && (
-                              <span className="text-[var(--accent-gold)] font-bold">+${option.price}</span>
-                            )}
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="text-2xl">{option.icon}</span>
+                            <div>
+                              <span className="font-semibold text-[var(--primary-dark)]">{option.name}</span>
+                              {option.price > 0 && (
+                                <span className="text-[var(--accent-gold)] font-bold ml-2">+${option.price}</span>
+                              )}
+                            </div>
                           </div>
-                          <div className="text-sm text-gray-600">{option.time}</div>
+                          <div className="text-sm text-gray-600 mb-1">{option.time}</div>
                           {option.note && (
-                            <div className="text-xs text-[var(--accent-gold)] mt-1">{option.note}</div>
+                            <div className="text-xs text-[var(--accent-gold)] font-medium">{option.note}</div>
                           )}
                         </div>
+                        {deliveryOption === option.id && (
+                          <div className="text-green-500 text-xl">✓</div>
+                        )}
                       </label>
                     ))}
                   </div>
@@ -439,10 +422,33 @@ export default function Cart() {
                       <button
                         onClick={handleCheckout}
                         disabled={isCheckingOut}
-                        className="button-primary w-full py-4 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                        className={`w-full py-4 text-lg font-semibold rounded-xl transition-all duration-300 ${
+                          isCheckingOut
+                            ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                            : 'button-primary hover:scale-105 hover:shadow-lg transform'
+                        }`}
                       >
-                        {isCheckingOut ? "Placing Order..." : "Proceed to Checkout"}
+                        {isCheckingOut ? (
+                          <div className="flex items-center justify-center gap-3">
+                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                            <span>Placing Order...</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-center gap-3">
+                            <span>🔒</span>
+                            <span>Proceed to Checkout</span>
+                            <span>→</span>
+                          </div>
+                        )}
                       </button>
+                      {isCheckingOut && (
+                        <div className="mt-4">
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className="bg-[var(--accent-gold)] h-2 rounded-full animate-pulse" style={{width: '60%'}}></div>
+                          </div>
+                          <p className="text-xs text-gray-500 text-center mt-2">Processing your order...</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

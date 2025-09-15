@@ -5,17 +5,20 @@ import Menu from "./pages/Menu";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
+import { CartProvider } from "./components/CartContext";
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="menu" element={<Menu />} />
-        <Route path="services" element={<Services />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="cart" element={<Cart />} />
-      </Route>
-    </Routes>
+    <CartProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="menu" element={<Menu />} />
+          <Route path="services" element={<Services />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="cart" element={<Cart />} />
+        </Route>
+      </Routes>
+    </CartProvider>
   );
 }
