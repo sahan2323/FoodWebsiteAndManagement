@@ -66,36 +66,37 @@ export default function Home() {
     { id: 8, name: "Wine Pairing", category: "Beverage", price: 25 }
   ];
 
+  // Featured packages with your updated content
   const featuredPackages = [
     {
       id: 1,
-      name: "Chef's Tasting Menu",
-      price: "$125",
-      originalPrice: "$150",
-      description: "An exquisite 7-course journey showcasing our chef's finest creations with wine pairings",
-      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop",
-      badge: "Most Popular",
-      features: ["7 Courses", "Wine Pairing", "Seasonal Ingredients", "Chef's Table Experience"]
+      name: "Healthy Meal",
+      price: "$40/$60",
+      originalPrice: "$45/$70",
+      description: "Our healthiest option with fresh ingredients and balanced portions.",
+      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
+      badge: "Most Healthy",
+      features: ["Regular/Large", "Fresh Ingredients", "Low Calorie"]
     },
     {
       id: 2,
-      name: "Business Lunch Elite",
-      price: "$45",
-      originalPrice: "$55",
-      description: "Sophisticated dining experience perfect for important business meetings and networking",
-      image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&h=400&fit=crop",
-      badge: "Executive Choice",
-      features: ["Express Service", "Private Dining", "WiFi Access", "Presentation Setup"]
+      name: "Student Budget Package",
+      price: "$15/$25",
+      originalPrice: "$20/$30",
+      description: "Affordable meals for students including a main and beverage.",
+      image: "https://images.unsplash.com/photo-1523983307663-0d22b8ec1d8c?w=600&h=400&fit=crop",
+      badge: "Budget Friendly",
+      features: ["Regular/Large", "Main + Beverage", "Affordable"]
     },
     {
       id: 3,
-      name: "Celebration Feast",
-      price: "$180",
-      originalPrice: "$220",
-      description: "Grand celebration package for special events, featuring our signature dishes and premium service",
-      image: "https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=600&h=400&fit=crop",
-      badge: "Premium",
-      features: ["Serves 8-10", "Custom Menu", "Decorations", "Dedicated Staff"]
+      name: "Special Sri Lankan Kottu",
+      price: "$12/$18",
+      originalPrice: "$14/$20",
+      description: "Delicious kottu paired with a beverage, a local favorite.",
+      image: "https://images.unsplash.com/photo-1562967916-eb82221dfb26?w=600&h=400&fit=crop",
+      badge: "Local Favorite",
+      features: ["Regular/Large", "Kottu + Beverage", "Authentic Sri Lankan"]
     }
   ];
 
@@ -193,12 +194,11 @@ export default function Home() {
       >
         <div className="hero-content">
           <h1 className="display-1 hero-title">
-            Culinary Excellence<br />
-            <span className="text-gradient">Redefined</span>
+            Healthy Plates,<br />
+            <span className="text-gradient">Cultural Tastes</span>
           </h1>
           <p className="body-large hero-subtitle">
-            Experience the perfect harmony of innovative cuisine, elegant ambiance, 
-            and exceptional service in the heart of the city
+            Experience a unique cuisine, exploring various flavors from around the world, with quality and health-conscious options.
           </p>
           <a href="#order-now" className="cta-button">
             <span>Order Now</span>
