@@ -8,6 +8,7 @@ export default function Menu() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [filterBy, setFilterBy] = useState("all");
+  const [addedToCartIds, setAddedToCartIds] = useState(new Set());
 
   const menuItems = [
     {
@@ -400,10 +401,27 @@ export default function Menu() {
                     </div>
                     <button
                       data-item-id={item.id}
-                      onClick={() => addToCart(item)}
-                      className="button-primary px-8 py-3 text-sm"
+                      onClick={() => {
+                        addToCart(item);
+                        setAddedToCartIds((prev) => new Set(prev).add(item.id));
+                        setTimeout(() => {
+                          setAddedToCartIds((prev) => {
+                            const newSet = new Set(prev);
+                            newSet.delete(item.id);
+                            return newSet;
+                          });
+                        }, 2000);
+                      }}
+                      className="button-primary px-8 py-3 text-sm flex items-center justify-center gap-2"
                     >
-                      Add to Cart
+                      {addedToCartIds.has(item.id) ? (
+                        <>
+                          <span>✔️</span>
+                          <span>Added</span>
+                        </>
+                      ) : (
+                        "Add to Cart"
+                      )}
                     </button>
                   </div>
                 </div>
