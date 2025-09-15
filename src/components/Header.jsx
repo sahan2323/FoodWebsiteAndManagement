@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "./CartContext";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { cart } = useContext(CartContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +51,7 @@ export default function Header() {
               <Link to="/cart" className="nav-link relative">
                 <span>Cart</span>
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  0
+                  {cart.length}
                 </span>
               </Link>
             </li>
@@ -100,12 +102,12 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/cart" 
+                <Link
+                  to="/cart"
                   className="block text-white hover:text-[var(--accent-gold)] transition-colors py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Cart (0)
+                  Cart ({cart.length})
                 </Link>
               </li>
             </ul>
