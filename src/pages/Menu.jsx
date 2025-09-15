@@ -1,14 +1,17 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../components/CartContext";
 
+import Modal from "../components/Modal";
+
 export default function Menu() {
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, cart, removeFromCart, updateQuantity } = useContext(CartContext);
   const [selectedCuisine, setSelectedCuisine] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [filterBy, setFilterBy] = useState("all");
   const [addedToCartIds, setAddedToCartIds] = useState(new Set());
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
   const menuItems = [
     {
@@ -411,6 +414,7 @@ export default function Menu() {
                             return newSet;
                           });
                         }, 2000);
++                        setIsCartModalOpen(true);
                       }}
                       className="button-primary px-8 py-3 text-sm flex items-center justify-center gap-2"
                     >
@@ -449,6 +453,80 @@ export default function Menu() {
           )}
         </div>
       </section>
+
+      {/* Cart Summary */}
+      <button
+        onClick={() => setIsCartModalOpen(true)}
+        className="fixed bottom-4 right-4 bg-primary-green text-white px-4 py-2 rounded-full shadow-lg z-40"
+        aria-label="Open Cart"
+      >
+        Cart ({cart.length})
+      </button>
+
+      <Modal isOpen={isCartModalOpen} onClose={() => setIsCartModalOpen(false)}>
+        <div className="flex flex-col max-h-[80vh] overflow-y-auto">
+          <h2 className="text-xl font-bold mb-4">My Cart</h2>
+          {cart.length === 0 ? (
+            <p>Your cart is empty.</p>
+          ) : (
+            <>
+              <div className="space-y-4">
+                {cart.map((item) => (
+                  <div key={item.id} className="flex items-center gap-4 border-b pb-4">
+                    <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded" />
+                    <div className="flex-1">
+                      <h3 className="font-semibold">{item.name}</h3>
+                      <p className="text-sm text-gray-600">{item.category}</p>
+                      <p className="text-sm font-semibold">LKR {item.price.toLocaleString()}</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          disabled={item.quantity <= 1}
+                          className="px-2 py-1 border rounded disabled:opacity-50"
+                          aria-label={`Decrease quantity of ${item.name}`}
+                        >
+                          −
+                        </button>
+                        <span>{item.quantity}</span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="px-2 py-1 border rounded"
+                          aria-label={`Increase quantity of ${item.name}`}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="text-red-600 hover:text-red-800"
+                      aria-label={`Remove ${item.name} from cart`}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 border-t pt-4 flex justify-between items-center font-semibold">
+                <span>Total</span>
+                <span>
+                  LKR{" "}
+                  {cart.reduce((total, item) => total + item.price * item.quantity, 0).toLocaleString()}
+                </span>
+              </div>
+              <div className="mt-6 flex flex-col gap-3">
+                <button className="bg-black text-white py-3 rounded font-bold">CHECK OUT</button>
+                <button
+                  onClick={() => setIsCartModalOpen(false)}
+                  className="bg-gray-200 py-3 rounded font-bold"
+                >
+                  CONTINUE SHOPPING
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 }
