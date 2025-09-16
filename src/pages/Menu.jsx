@@ -473,24 +473,24 @@ export default function Menu() {
               <div className="space-y-4">
                 {cart.map((item) => (
                   <div key={item.id} className="flex items-center gap-4 border-b pb-4">
-                    <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded" />
+                    <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded-lg shadow-md" />
                     <div className="flex-1">
-                      <h3 className="font-semibold">{item.name}</h3>
-                      <p className="text-sm text-gray-600">{item.category}</p>
-                      <p className="text-sm font-semibold">LKR {item.price.toLocaleString()}</p>
-                      <div className="flex items-center gap-2 mt-2">
+                      <h3 className="font-semibold text-lg">{item.name}</h3>
+                      <p className="text-sm text-gray-600 italic">{item.category}</p>
+                      <p className="text-sm font-semibold mt-1">LKR {item.price.toLocaleString()}</p>
+                      <div className="flex items-center gap-2 mt-3">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           disabled={item.quantity <= 1}
-                          className="px-2 py-1 border rounded disabled:opacity-50"
+                          className="px-3 py-1 border rounded disabled:opacity-50 hover:bg-gray-100 transition"
                           aria-label={`Decrease quantity of ${item.name}`}
                         >
                           −
                         </button>
-                        <span>{item.quantity}</span>
+                        <span className="px-3 py-1 border rounded bg-gray-50">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="px-2 py-1 border rounded"
+                          className="px-3 py-1 border rounded hover:bg-gray-100 transition"
                           aria-label={`Increase quantity of ${item.name}`}
                         >
                           +
@@ -499,8 +499,9 @@ export default function Menu() {
                     </div>
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="text-red-600 hover:text-red-800"
+                      className="text-red-600 hover:text-red-800 text-xl font-bold px-2 rounded transition"
                       aria-label={`Remove ${item.name} from cart`}
+                      title="Remove item"
                     >
                       ×
                     </button>
