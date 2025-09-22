@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import { CartContext } from "../components/CartContext"; // Update this path to match your file structure
-
+import { CartContext } from "../components/CartContext"; // Update this path to match your file struc
+//import "../cart.css";
 export default function Cart() {
   const { cart: cartItems, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
   const [promoCode, setPromoCode] = useState("");
@@ -129,9 +129,9 @@ export default function Cart() {
   if (cartItems.length === 0) {
     return (
       <div className="min-h-screen pt-24" style={{ background: 'var(--bg-light)' }}>
-        <div className="container text-center py-20">
-          <div className="animate-slide-up">
-            <div className="text-8xl mb-8">🛒</div>
+        <div className="container">
+          <div className="empty-cart-container animate-slide-up">
+            <div className="empty-cart-icon">🛒</div>
             <h1 className="display-2 mb-6" style={{ color: 'var(--primary-dark)' }}>Your Cart Awaits</h1>
             <p className="body-large mb-12 max-w-2xl mx-auto" style={{ color: 'var(--text-light)' }}>
               Discover our exquisite collection of culinary masterpieces and start building your perfect dining experience.
@@ -139,14 +139,14 @@ export default function Cart() {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a
                 href="/menu"
-                className="button-primary px-10 py-4 inline-flex items-center justify-center gap-3 text-lg"
+                className="button-primary px-10 py-4 text-lg"
               >
                 <span>🍽️</span>
                 <span>Explore Our Menu</span>
               </a>
               <a
                 href="/experiences"
-                className="button-secondary px-10 py-4 inline-flex items-center justify-center gap-3 text-lg"
+                className="button-secondary px-10 py-4 text-lg"
               >
                 <span>✨</span>
                 <span>View Experiences</span>
@@ -170,22 +170,14 @@ export default function Cart() {
             <p className="body-large section-subtitle mb-10 max-w-2xl mx-auto">
               Review your carefully curated dining experience and complete your order with confidence.
             </p>
-            <div className="flex flex-wrap justify-center gap-8 text-sm">
+            <div className="flex flex-wrap justify-center gap-8 text-sm feature-pills">
               {[
                 { icon: "👨‍🍳", text: "Chef Prepared" },
                 { icon: "🔒", text: "Secure Checkout" },
                 { icon: "⭐", text: "Premium Service" },
                 { icon: "🚀", text: "Fast Delivery" }
               ].map((item, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-center gap-3 px-4 py-2 rounded-full border"
-                  style={{ 
-                    background: 'var(--white)', 
-                    borderColor: 'var(--accent-gold)',
-                    opacity: '0.9'
-                  }}
-                >
+                <div key={index} className="feature-pill">
                   <span className="text-2xl">{item.icon}</span>
                   <span className="font-semibold" style={{ color: 'var(--primary-green)' }}>{item.text}</span>
                 </div>
@@ -197,7 +189,7 @@ export default function Cart() {
 
       <div className="section">
         <div className="container">
-          <div className="grid lg:grid-cols-3 gap-12">
+          <div className="grid lg:grid-cols-3 gap-12 cart-grid">
             
             {/* Cart Items - Left Column */}
             <div className="lg:col-span-2 space-y-6">
@@ -209,7 +201,7 @@ export default function Cart() {
                   Order Items
                 </h2>
                 {savings > 0 && (
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 text-green-800 px-6 py-3 rounded-full text-sm font-semibold flex items-center gap-2 border border-green-200">
+                  <div className="savings-indicator">
                     <span>💰</span>
                     You're saving ${savings.toFixed(2)}
                   </div>
@@ -220,7 +212,7 @@ export default function Cart() {
                 <div 
                   key={item.id} 
                   className={`card-premium transform transition-all duration-300 ${
-                    removingItem === item.id ? 'opacity-0 scale-95 translate-x-full' : 'hover:scale-[1.02]'
+                    removingItem === item.id ? 'cart-item-removing' : 'hover:scale-[1.02]'
                   }`}
                   style={{ 
                     animationDelay: `${index * 100}ms`,
@@ -228,24 +220,25 @@ export default function Cart() {
                   }}
                 >
                   <div className="p-8">
-                    <div className="flex gap-6">
+                    <div className="flex gap-6 cart-item-content">
                       {/* Enhanced Product Image */}
                       <div className="relative group">
-                        <div className="w-36 h-36 rounded-2xl overflow-hidden bg-gradient-to-br from-[#f9f7f4] to-[#e8d5b7]">
+                        <div className="w-36 h-36 cart-item-image-wrapper">
                           <img 
                             src={item.image || 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=300&h=300&fit=crop'} 
                             alt={item.name}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            style={{ borderRadius: 'var(--border-radius-md)' }}
                           />
                         </div>
                         {item.chef_special && (
-                          <div className="absolute -top-3 -right-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg flex items-center gap-1">
+                          <div className="cart-item-badge">
                             <span>👨‍🍳</span>
                             Special
                           </div>
                         )}
                         {item.originalPrice && (
-                          <div className="absolute -bottom-2 -left-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                          <div className="sale-badge">
                             SALE
                           </div>
                         )}
@@ -258,10 +251,7 @@ export default function Cart() {
                               {item.name}
                             </h3>
                             <div className="flex items-center gap-3 mb-3">
-                              <span 
-                                className="text-sm px-3 py-1 rounded-full"
-                                style={{ color: 'var(--text-light)', background: 'var(--bg-cream)' }}
-                              >
+                              <span className="category-badge">
                                 {item.category}
                               </span>
                               {item.chef_special && (
@@ -271,22 +261,19 @@ export default function Cart() {
                           </div>
                           <button
                             onClick={() => handleRemoveItem(item.id)}
-                            className="w-10 h-10 rounded-full text-2xl font-bold transition-all duration-200 flex items-center justify-center group hover:bg-red-50"
-                            style={{ color: 'var(--text-light)' }}
+                            className="remove-button"
                             title="Remove item"
-                            onMouseEnter={(e) => e.target.style.color = '#ef4444'}
-                            onMouseLeave={(e) => e.target.style.color = 'var(--text-light)'}
                           >
-                            <span className="group-hover:rotate-90 transition-transform duration-200">×</span>
+                            <span className="remove-icon">×</span>
                           </button>
                         </div>
                         
                         <div className="flex items-baseline gap-4 mb-4">
-                          <div className="text-3xl font-bold text-gradient">
+                          <div className="price-current">
                             ${item.price}
                           </div>
                           {item.originalPrice && (
-                            <div className="text-lg line-through" style={{ color: 'var(--text-light)' }}>
+                            <div className="price-original">
                               ${item.originalPrice}
                             </div>
                           )}
@@ -300,16 +287,7 @@ export default function Cart() {
                             </p>
                             <div className="flex flex-wrap gap-2">
                               {item.customizations.map((custom, idx) => (
-                                <span 
-                                  key={idx} 
-                                  className="text-xs px-4 py-2 rounded-full border transition-colors duration-200"
-                                  style={{ 
-                                    background: 'var(--bg-cream)',
-                                    color: 'var(--primary-green)',
-                                    borderColor: 'var(--accent-gold)'
-                                  }}
-                                  onMouseEnter={(e) => e.target.style.borderColor = 'var(--accent-gold)'}
-                                >
+                                <span key={idx} className="customization-tag">
                                   {custom}
                                 </span>
                               ))}
@@ -318,54 +296,25 @@ export default function Cart() {
                         )}
                         
                         <div className="flex items-center justify-between">
-                          <div 
-                            className="flex items-center rounded-full p-1"
-                            style={{ background: 'var(--bg-cream)' }}
-                          >
+                          <div className="quantity-control-wrapper flex items-center">
                             <button
                               onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
-                              className="w-12 h-12 rounded-full font-bold transition-all duration-200 flex items-center justify-center"
-                              style={{ 
-                                background: 'var(--white)',
-                                color: 'var(--primary-green)',
-                                boxShadow: 'var(--shadow-light)'
-                              }}
-                              onMouseEnter={(e) => {
-                                e.target.style.background = 'var(--accent-gold)';
-                                e.target.style.color = 'var(--white)';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.target.style.background = 'var(--white)';
-                                e.target.style.color = 'var(--primary-green)';
-                              }}
+                              className="quantity-button"
                             >
-                              −
+                              <span style={{ position: 'relative', zIndex: 1 }}>−</span>
                             </button>
-                            <span className="text-2xl font-bold min-w-[4rem] text-center" style={{ color: 'var(--primary-green)' }}>
+                            <span className="quantity-display">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
-                              className="w-12 h-12 rounded-full font-bold transition-all duration-200 flex items-center justify-center"
-                              style={{ 
-                                background: 'var(--white)',
-                                color: 'var(--primary-green)',
-                                boxShadow: 'var(--shadow-light)'
-                              }}
-                              onMouseEnter={(e) => {
-                                e.target.style.background = 'var(--accent-gold)';
-                                e.target.style.color = 'var(--white)';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.target.style.background = 'var(--white)';
-                                e.target.style.color = 'var(--primary-green)';
-                              }}
+                              className="quantity-button"
                             >
-                              +
+                              <span style={{ position: 'relative', zIndex: 1 }}>+</span>
                             </button>
                           </div>
                           <div className="text-right">
-                            <div className="text-3xl font-bold" style={{ color: 'var(--primary-green)' }}>
+                            <div className="price-total">
                               ${(item.price * item.quantity).toFixed(2)}
                             </div>
                             {item.originalPrice && (
@@ -385,7 +334,7 @@ export default function Cart() {
               <div className="text-center pt-8">
                 <a 
                   href="/menu"
-                  className="button-secondary px-10 py-4 inline-flex items-center gap-3 text-lg"
+                  className="button-secondary px-10 py-4 text-lg"
                 >
                   <span>←</span>
                   <span>Continue Shopping</span>
@@ -405,7 +354,7 @@ export default function Cart() {
                   </h3>
                   
                   {appliedPromo ? (
-                    <div className={`bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 transition-all duration-300 ${showPromoSuccess ? 'animate-pulse' : ''}`}>
+                    <div className={`promo-success-card ${showPromoSuccess ? 'animate-pulse' : ''}`}>
                       <div className="flex justify-between items-center">
                         <div>
                           <div className="font-bold text-green-800 text-lg flex items-center gap-2 mb-2">
@@ -430,13 +379,14 @@ export default function Cart() {
                           placeholder="Enter code"
                           value={promoCode}
                           onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
-                          className="flex-1 p-4 border-2 border-gray-200 rounded-xl focus:border-[#c9a96e] focus:outline-none text-center font-mono text-lg bg-white hover:border-gray-300 transition-colors duration-200"
+                          className="flex-1 promo-input"
                           onKeyPress={(e) => e.key === 'Enter' && applyPromoCode()}
                         />
                         <button
                           onClick={applyPromoCode}
                           disabled={!promoCode}
-                          className="button-primary px-8 py-4 text-sm disabled:opacity-50 disabled:cursor-not-allowed rounded-xl"
+                          className="button-primary px-8 py-4 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                          style={{ borderRadius: 'var(--border-radius-md)' }}
                         >
                           Apply
                         </button>
@@ -449,7 +399,7 @@ export default function Cart() {
                             <button
                               key={code}
                               onClick={() => setPromoCode(code)}
-                              className="text-xs bg-white px-3 py-1 rounded-full text-[#1a3636] hover:bg-[#c9a96e] hover:text-white transition-all duration-200 border border-[#c9a96e]/20"
+                              className="promo-code-suggestion"
                             >
                               {code}
                             </button>
@@ -472,11 +422,7 @@ export default function Cart() {
                     {deliveryOptions.map((option) => (
                       <label 
                         key={option.id} 
-                        className={`flex items-center space-x-4 cursor-pointer p-4 rounded-2xl transition-all duration-300 border-2 ${
-                          deliveryOption === option.id 
-                            ? 'bg-gradient-to-r from-[#c9a96e]/10 to-[#e8d5b7]/10 border-[#c9a96e] shadow-lg' 
-                            : 'hover:bg-[#f9f7f4] border-gray-200 hover:border-[#c9a96e]/50'
-                        }`}
+                        className={`delivery-option ${deliveryOption === option.id ? 'selected' : ''}`}
                       >
                         <input 
                           type="radio" 
@@ -489,7 +435,7 @@ export default function Cart() {
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-3">
-                              <span className="text-2xl">{option.icon}</span>
+                              <span className="delivery-icon">{option.icon}</span>
                               <span className="font-semibold text-[#1a3636]">{option.name}</span>
                             </div>
                             {option.price > 0 && (
@@ -513,7 +459,7 @@ export default function Cart() {
 
               {/* Enhanced Order Summary */}
               <div className="card-premium overflow-hidden">
-                <div className="bg-gradient-to-r from-[#1a3636] to-[#2d5a5a] text-white p-6">
+                <div className="order-summary-header">
                   <h3 className="heading-2 text-white mb-2 flex items-center gap-3" style={{fontSize: '1.5rem'}}>
                     <span className="text-2xl">📋</span>
                     Order Summary
@@ -521,13 +467,13 @@ export default function Cart() {
                 </div>
                 <div className="p-8 space-y-5">
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center py-2">
+                    <div className="summary-line-item">
                       <span className="text-[#6b7280]">Subtotal</span>
                       <span className="font-semibold text-[#1a3636] text-lg">${subtotal.toFixed(2)}</span>
                     </div>
                     
                     {savings > 0 && (
-                      <div className="flex justify-between items-center py-2 text-green-600">
+                      <div className="summary-line-item text-green-600">
                         <span className="flex items-center gap-2">
                           <span>💰</span>
                           Item Savings
@@ -537,7 +483,7 @@ export default function Cart() {
                     )}
                     
                     {discount > 0 && (
-                      <div className="flex justify-between items-center py-2 text-green-600">
+                      <div className="summary-line-item text-green-600">
                         <span className="flex items-center gap-2">
                           <span>🎫</span>
                           Promo Discount ({discount}%)
@@ -546,12 +492,12 @@ export default function Cart() {
                       </div>
                     )}
                     
-                    <div className="flex justify-between items-center py-2">
+                    <div className="summary-line-item">
                       <span className="text-[#6b7280]">Tax (8.75%)</span>
                       <span className="font-semibold text-[#1a3636] text-lg">${tax.toFixed(2)}</span>
                     </div>
                     
-                    <div className="flex justify-between items-center py-2">
+                    <div className="summary-line-item">
                       <span className="text-[#6b7280] flex items-center gap-2">
                         <span>{selectedDelivery?.icon}</span>
                         {selectedDelivery?.name}
@@ -564,10 +510,10 @@ export default function Cart() {
                     </div>
                   </div>
                   
-                  <div className="border-t-2 border-gray-200 pt-6">
+                  <div className="summary-total">
                     <div className="flex justify-between items-center text-3xl font-bold text-[#1a3636] mb-2">
                       <span>Total</span>
-                      <span className="bg-gradient-to-r from-[#c9a96e] to-[#e8d5b7] bg-clip-text text-transparent">
+                      <span className="total-amount">
                         ${total.toFixed(2)}
                       </span>
                     </div>
@@ -582,15 +528,13 @@ export default function Cart() {
                     <button
                       onClick={handleCheckout}
                       disabled={isCheckingOut}
-                      className={`w-full py-5 text-xl font-semibold rounded-2xl transition-all duration-300 transform ${
-                        isCheckingOut 
-                          ? 'bg-gray-400 cursor-not-allowed' 
-                          : 'bg-gradient-to-r from-[#1a3636] to-[#2d5a5a] hover:from-[#2d5a5a] to-[#3a6b6b] hover:scale-105 shadow-lg hover:shadow-2xl'
-                      } text-white flex items-center justify-center gap-3`}
+                      className={`w-full checkout-button ${
+                        isCheckingOut ? 'opacity-75 cursor-not-allowed' : ''
+                      } text-xl font-semibold flex items-center justify-center gap-3`}
                     >
                       {isCheckingOut ? (
                         <>
-                          <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <div className="loading-spinner"></div>
                           Processing Order...
                         </>
                       ) : (
@@ -601,19 +545,19 @@ export default function Cart() {
                       )}
                     </button>
                     
-                    <div className="flex items-center justify-center gap-4 text-xs text-[#6b7280] bg-[#f9f7f4] py-3 rounded-xl">
-                      <div className="flex items-center gap-1">
-                        <span>🔒</span>
+                    <div className="security-features">
+                      <div className="security-feature">
+                        <span className="icon">🔒</span>
                         <span>SSL Encrypted</span>
                       </div>
                       <div className="w-1 h-1 bg-[#6b7280] rounded-full"></div>
-                      <div className="flex items-center gap-1">
-                        <span>⚡</span>
+                      <div className="security-feature">
+                        <span className="icon">⚡</span>
                         <span>Instant Processing</span>
                       </div>
                       <div className="w-1 h-1 bg-[#6b7280] rounded-full"></div>
-                      <div className="flex items-center gap-1">
-                        <span>💳</span>
+                      <div className="security-feature">
+                        <span className="icon">💳</span>
                         <span>All Cards Accepted</span>
                       </div>
                     </div>
