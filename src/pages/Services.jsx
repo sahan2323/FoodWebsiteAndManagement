@@ -6,174 +6,108 @@ export default function Services() {
   const services = [
     {
       id: 1,
-      title: "Fine Dining Experience",
-      shortDesc: "Elegant atmosphere with world-class service",
-      fullDesc: "Immerse yourself in our sophisticated dining room where every detail is designed to create an unforgettable experience. From our handpicked tableware to our professionally trained staff, every moment is crafted to perfection.",
-      icon: "🍽️",
-      price: "Starting at $85 per person",
-      duration: "2-3 hours",
+      title: "Custom Package Builder",
+      shortDesc: "Build your perfect short eats combination",
+      fullDesc: "Create your ideal package by selecting from our wide variety of fresh short eats. Perfect for any occasion, from small gatherings to large celebrations.",
+      icon: "🛍️",
+      price: "Starting at $15",
+      duration: "Ready in 30-45 minutes",
       features: [
-        "Seven-course tasting menu",
-        "Sommelier wine pairing",
-        "Private table service",
-        "Complimentary amuse-bouche",
-        "Chef's special surprise",
-        "Personalized menu cards"
+        "Choose from 15+ varieties",
+        "Flexible package sizes",
+        "Custom dietary options",
+        "Fresh preparation guarantee"
       ],
-      image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=600&h=400&fit=crop",
-      availability: "Daily 6:00 PM - 10:00 PM"
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
     },
     {
       id: 2,
-      title: "Chef's Table Experience",
-      shortDesc: "Intimate dining with front-row kitchen views",
-      fullDesc: "Witness culinary artistry up close at our exclusive chef's table. Watch our master chefs create each dish while enjoying personalized interaction and behind-the-scenes insights into our culinary process.",
-      icon: "👨‍🍳",
-      price: "Starting at $150 per person",
-      duration: "3-4 hours",
+      title: "Party Catering",
+      shortDesc: "Full-service catering for celebrations",
+      fullDesc: "Let us handle your party catering needs with our comprehensive service. From setup to cleanup, we make your celebration stress-free.",
+      icon: "🎉",
+      price: "Starting at $12/person",
+      duration: "Full event coverage",
       features: [
-        "Interactive chef experience",
-        "Exclusive 10-course menu",
-        "Kitchen tour and Q&A",
-        "Premium wine selection",
-        "Signed recipe cards",
-        "Photo opportunities"
+        "Professional setup service",
+        "Decorative presentation",
+        "Serving staff available",
+        "Complete cleanup included"
       ],
-      image: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&h=400&fit=crop",
-      availability: "Friday & Saturday 7:00 PM"
+      image: "https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
     },
     {
       id: 3,
-      title: "Private Event Catering",
-      shortDesc: "Bespoke catering for your special occasions",
-      fullDesc: "Transform your special events with our comprehensive catering services. From intimate gatherings to grand celebrations, we create customized menus and provide full-service catering that exceeds expectations.",
-      icon: "🎉",
-      price: "Starting at $75 per person",
-      duration: "Full event service",
+      title: "Office Delivery",
+      shortDesc: "Fresh meals delivered to your workplace",
+      fullDesc: "Convenient lunch delivery service perfect for team meetings, office celebrations, or regular meal breaks. Fresh and delicious every time.",
+      icon: "💼",
+      price: "Starting at $8/person",
+      duration: "30-60 minute delivery",
       features: [
-        "Custom menu design",
-        "Professional event staff",
-        "Full setup and breakdown",
-        "Premium tableware",
-        "Dietary accommodations",
-        "Event planning consultation"
+        "Bulk order discounts",
+        "Scheduled deliveries",
+        "Individual packaging",
+        "Invoice billing available"
       ],
-      image: "https://images.unsplash.com/photo-1555244162-803834f70033?w=600&h=400&fit=crop",
-      availability: "By appointment, 48hr notice"
+      image: "https://images.unsplash.com/photo-1556909114-4f6e67ced5de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
     },
     {
       id: 4,
-      title: "Wine Tasting Events",
-      shortDesc: "Curated wine experiences with expert guidance",
-      fullDesc: "Explore exceptional wines from around the world with our certified sommelier. Each tasting is paired with carefully selected small plates designed to complement and enhance the wine flavors.",
-      icon: "🍷",
-      price: "Starting at $65 per person",
-      duration: "2 hours",
+      title: "Home Service",
+      shortDesc: "Professional catering at your home",
+      fullDesc: "Transform your home gathering into a memorable event. We bring everything needed to serve delicious food, making hosting effortless.",
+      icon: "🏠",
+      price: "Starting at $18/person",
+      duration: "2-4 hours service",
       features: [
-        "6 premium wine selections",
-        "Expert sommelier guidance",
-        "Artisan cheese pairings",
-        "Tasting notes provided",
-        "Wine education session",
-        "Take-home wine guide"
+        "In-home setup",
+        "Professional staff",
+        "Complete table service",
+        "Post-event cleanup"
       ],
-      image: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&h=400&fit=crop",
-      availability: "Every Thursday 7:00 PM"
-    },
-    {
-      id: 5,
-      title: "Culinary Classes",
-      shortDesc: "Learn from our master chefs",
-      fullDesc: "Master the art of fine cuisine with hands-on cooking classes led by our executive chefs. Learn professional techniques, knife skills, and the secrets behind our signature dishes.",
-      icon: "📚",
-      price: "Starting at $120 per person",
-      duration: "3 hours",
-      features: [
-        "Hands-on cooking instruction",
-        "Professional chef guidance",
-        "Recipe cards and techniques",
-        "All ingredients provided",
-        "Enjoy your creations",
-        "Certificate of completion"
-      ],
-      image: "https://images.unsplash.com/photo-1556909114-567ba4862194?w=600&h=400&fit=crop",
-      availability: "Saturdays 2:00 PM - 5:00 PM"
-    },
-    {
-      id: 6,
-      title: "Corporate Dining",
-      shortDesc: "Sophisticated venue for business meetings",
-      fullDesc: "Elevate your business meetings and corporate events with our professional dining services. Private dining rooms, audiovisual equipment, and customized menus designed for business success.",
-      icon: "💼",
-      price: "Starting at $95 per person",
-      duration: "2-4 hours",
-      features: [
-        "Private dining rooms",
-        "A/V equipment available",
-        "Business lunch menus",
-        "WiFi and presentation setup",
-        "Dedicated service staff",
-        "Flexible scheduling"
-      ],
-      image: "https://images.unsplash.com/photo-1556909114-4f6e67ced5de?w=600&h=400&fit=crop",
-      availability: "Monday-Friday 11:30 AM - 2:30 PM"
+      image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400"
     }
   ];
 
-  const additionalServices = [
+  const quickServices = [
     {
-      title: "Personal Chef Service",
-      description: "Private chef for your home events",
-      icon: "👨‍🍳",
-      price: "From $200/event"
+      title: "Express Pickup",
+      description: "Ready-made packages for immediate pickup",
+      icon: "⚡",
+      price: "From $10"
     },
     {
-      title: "Menu Consultation",
-      description: "Custom menu planning and design",
-      icon: "📋",
-      price: "From $150/session"
+      title: "Weekly Meal Plans",
+      description: "Regular deliveries of your favorite items",
+      icon: "📅",
+      price: "From $50/week"
     },
     {
-      title: "Gift Experiences",
-      description: "Perfect gifts for food enthusiasts",
+      title: "Gift Packages",
+      description: "Perfect gifts for food lovers",
       icon: "🎁",
-      price: "From $100"
+      price: "From $20"
     },
     {
-      title: "Food Photography",
-      description: "Professional food styling and photography",
-      icon: "📸",
-      price: "From $300/session"
+      title: "Bulk Orders",
+      description: "Large quantity orders with discounts",
+      icon: "📦",
+      price: "From $6/person"
     }
   ];
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="services-page">
       {/* Hero Section */}
-      <section className="section bg-gradient-to-br from-[var(--bg-cream)] to-[var(--bg-light)]">
+      <section className="services-hero">
         <div className="container">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="display-1 section-title mb-6">
-              Exclusive <span className="text-gradient">Culinary Services</span>
-            </h1>
-            <p className="body-large text-gray-600 mb-8">
-              Beyond exceptional dining, we offer curated experiences that celebrate the art of cuisine. 
-              From intimate chef's tables to grand celebrations, discover services crafted for the discerning palate.
+          <div className="services-hero-content">
+            <h1 className="display-1">Our <span className="text-gradient">Services</span></h1>
+            <p className="body-large">
+              From custom packages to full event catering, we provide fresh, delicious short eats 
+              for every occasion. Simple ordering, professional service, exceptional taste.
             </p>
-            <div className="flex flex-wrap justify-center gap-8 text-center">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🏆</span>
-                <span className="font-semibold">Award Winning</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">👥</span>
-                <span className="font-semibold">Expert Team</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">✨</span>
-                <span className="font-semibold">Bespoke Experience</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -182,73 +116,49 @@ export default function Services() {
       <section className="section">
         <div className="container">
           <div className="section-header">
-            <h2 className="heading-1 section-title">Our Signature Services</h2>
+            <h2 className="heading-1">What We Offer</h2>
             <p className="section-subtitle">
-              Each service is meticulously designed to provide an extraordinary culinary journey
+              Professional food services designed to make your events memorable
             </p>
           </div>
           
-          <div className="grid-premium">
+          <div className="services-grid">
             {services.map((service) => (
-              <div key={service.id} className="card-premium group">
-                <div className="card-image">
+              <div key={service.id} className="service-card">
+                <div className="service-image">
                   <img src={service.image} alt={service.title} />
-                  <div className="absolute top-4 left-4 text-4xl bg-white/90 p-3 rounded-full shadow-lg">
-                    {service.icon}
+                  <div className="service-overlay">
+                    <div className="service-icon">{service.icon}</div>
+                    <div className="service-price">{service.price}</div>
                   </div>
-                  <div className="absolute top-4 right-4 bg-[var(--accent-gold)] text-[var(--primary-dark)] px-3 py-1 rounded-full text-sm font-bold">
-                    {service.price}
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <button
-                    onClick={() => setSelectedService(service)}
-                    className="absolute bottom-4 left-4 right-4 bg-white text-[var(--primary-dark)] py-2 px-4 rounded-lg font-semibold opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-[var(--accent-gold)]"
-                  >
-                    Learn More
-                  </button>
                 </div>
 
-                <div className="card-body">
-                  <h3 className="card-title">{service.title}</h3>
-                  <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
-                    <span className="flex items-center gap-1">
-                      <span>⏱️</span>
-                      {service.duration}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <span>📅</span>
-                      Available
-                    </span>
-                  </div>
+                <div className="service-content">
+                  <h3 className="service-title">{service.title}</h3>
+                  <p className="service-description">{service.shortDesc}</p>
                   
-                  <p className="card-description">{service.shortDesc}</p>
-                  
-                  <div className="mt-6">
-                    <h4 className="font-semibold text-[var(--primary-dark)] mb-3">Includes:</h4>
-                    <div className="grid grid-cols-1 gap-2">
-                      {service.features.slice(0, 3).map((feature, index) => (
-                        <div key={index} className="flex items-center text-sm text-gray-600">
-                          <span className="text-[var(--accent-gold)] mr-2">✓</span>
-                          {feature}
-                        </div>
-                      ))}
-                      {service.features.length > 3 && (
-                        <div className="text-sm text-[var(--accent-gold)] font-medium">
-                          +{service.features.length - 3} more features
-                        </div>
-                      )}
-                    </div>
+                  <div className="service-meta">
+                    <span>{service.duration}</span>
                   </div>
 
-                  <div className="flex gap-3 mt-6">
+                  <div className="service-features">
+                    {service.features.map((feature, index) => (
+                      <div key={index} className="feature-item">
+                        <span className="feature-check">✓</span>
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="service-actions">
                     <button
                       onClick={() => setSelectedService(service)}
-                      className="button-secondary flex-1 px-4 py-2 text-sm"
+                      className="button-secondary"
                     >
-                      Details
+                      Learn More
                     </button>
-                    <button className="button-primary flex-1 px-4 py-2 text-sm">
-                      Book Now
+                    <button className="button-primary">
+                      Order Now
                     </button>
                   </div>
                 </div>
@@ -258,135 +168,83 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Service Hours */}
+      {/* Quick Services */}
       <section className="section section-alt">
         <div className="container">
-          <div className="bg-white rounded-3xl p-12 shadow-xl border border-[var(--accent-gold)]/10">
-            <div className="text-center mb-12">
-              <h3 className="heading-1 section-title mb-4">Service Hours & Availability</h3>
-              <p className="text-gray-600">Plan your perfect dining experience with our flexible scheduling</p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service, index) => (
-                <div key={index} className="text-center p-6 bg-gradient-to-br from-[var(--bg-cream)] to-[var(--bg-light)] rounded-2xl">
-                  <div className="text-3xl mb-3">{service.icon}</div>
-                  <h4 className="font-bold text-[var(--primary-dark)] mb-2">{service.title}</h4>
-                  <p className="text-sm text-gray-600 mb-2">{service.availability}</p>
-                  <div className="text-xs text-[var(--accent-gold)] font-semibold bg-white/50 px-2 py-1 rounded-full inline-block">
-                    {service.duration}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 text-center">
-              <div className="inline-flex items-center gap-6 bg-gradient-to-r from-[var(--primary-green)] to-[var(--secondary-green)] text-white px-8 py-4 rounded-2xl">
-                <span className="text-2xl">📞</span>
-                <div className="text-left">
-                  <div className="font-semibold">Reserve by Phone</div>
-                  <div className="text-sm opacity-90">(555) 123-4567</div>
-                </div>
+          <div className="section-header">
+            <h2 className="heading-1">Quick Options</h2>
+            <p className="section-subtitle">Additional services for your convenience</p>
+          </div>
+          
+          <div className="quick-services-grid">
+            {quickServices.map((service, index) => (
+              <div key={index} className="quick-service-card">
+                <div className="quick-service-icon">{service.icon}</div>
+                <h4 className="quick-service-title">{service.title}</h4>
+                <p className="quick-service-description">{service.description}</p>
+                <div className="quick-service-price">{service.price}</div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Additional Services */}
+      {/* How It Works */}
       <section className="section">
         <div className="container">
           <div className="section-header">
-            <h3 className="heading-1 section-title">Additional Services</h3>
-            <p className="section-subtitle">Complete culinary solutions for every occasion</p>
+            <h2 className="heading-1">How It Works</h2>
+            <p className="section-subtitle">Simple steps to get your delicious food</p>
           </div>
           
-          <div className="grid-features">
-            {additionalServices.map((service, index) => (
-              <div key={index} className="feature-box hover:scale-105">
-                <span className="feature-icon">{service.icon}</span>
-                <h4 className="feature-title">{service.title}</h4>
-                <p className="feature-description">{service.description}</p>
-                <div className="mt-4 text-[var(--accent-gold)] font-bold">{service.price}</div>
-                <button className="button-primary mt-4 px-6 py-2 text-sm">
-                  Inquire Now
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Steps */}
-      <section className="section section-alt">
-        <div className="container">
-          <div className="section-header">
-            <h3 className="heading-1 section-title">How We Serve You</h3>
-            <p className="section-subtitle">Our meticulous process ensures exceptional experiences every time</p>
-          </div>
-          
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="steps-container">
             {[
               {
                 step: "1",
-                title: "Consultation",
-                description: "Discuss your vision, preferences, and requirements with our team"
+                title: "Choose Service",
+                description: "Select the service that fits your needs"
               },
               {
                 step: "2", 
-                title: "Planning",
-                description: "Custom menu design and detailed event planning tailored to you"
+                title: "Place Order",
+                description: "Call us or visit to place your order"
               },
               {
                 step: "3",
-                title: "Preparation", 
-                description: "Expert chefs prepare every element with precision and care"
+                title: "We Prepare", 
+                description: "Fresh preparation using quality ingredients"
               },
               {
                 step: "4",
-                title: "Experience",
-                description: "Enjoy your perfectly executed culinary experience"
+                title: "Enjoy",
+                description: "Delivery, pickup, or full service - your choice"
               }
             ].map((process, index) => (
-              <div key={index} className="text-center group">
-                <div className="relative mb-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[var(--accent-gold)] to-[var(--light-gold)] rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-[var(--primary-dark)] shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    {process.step}
-                  </div>
-                  {index < 3 && (
-                    <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-[var(--accent-gold)] to-transparent"></div>
-                  )}
-                </div>
-                <h4 className="heading-2 text-[var(--primary-dark)] mb-3" style={{fontSize: '1.5rem'}}>
-                  {process.title}
-                </h4>
-                <p className="text-gray-600">{process.description}</p>
+              <div key={index} className="step-item">
+                <div className="step-number">{process.step}</div>
+                <h4 className="step-title">{process.title}</h4>
+                <p className="step-description">{process.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="section">
+      {/* Contact CTA */}
+      <section className="section section-alt">
         <div className="container">
-          <div className="bg-gradient-to-br from-[var(--primary-green)] to-[var(--secondary-green)] text-white p-12 rounded-3xl text-center">
-            <h3 className="heading-1 mb-6">Ready for an Extraordinary Experience?</h3>
-            <p className="body-large mb-8 opacity-90 max-w-3xl mx-auto">
-              Let us create a bespoke culinary journey tailored to your preferences. 
-              Contact our team today to discuss your perfect dining experience.
+          <div className="contact-cta-card">
+            <h2 className="heading-1">Ready to Order?</h2>
+            <p className="cta-description">
+              Contact us today to discuss your needs or place an order. We're here to make your event delicious and memorable.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/contact" className="inline-flex items-center justify-center gap-3 bg-white text-[var(--primary-green)] px-8 py-4 rounded-full font-semibold hover:bg-[var(--light-gold)] transition-all duration-300 hover:scale-105">
-                <span>Contact Our Team</span>
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
-                </svg>
-              </a>
-              <a href="tel:+94711052772" className="inline-flex items-center justify-center gap-3 border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[var(--primary-green)] transition-all duration-300">
-                <span>📞</span>
-                <span>Call Now</span>
-              </a>
+            <div className="cta-actions">
+              <button className="cta-button">
+                📞 Call Now: (555) 123-4567
+              </button>
+              <button className="button-secondary">
+                Get Quote
+              </button>
             </div>
           </div>
         </div>
@@ -394,64 +252,56 @@ export default function Services() {
 
       {/* Service Detail Modal */}
       {selectedService && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h3 className="heading-1 text-[var(--primary-dark)] mb-2">{selectedService.title}</h3>
-                <div className="flex items-center gap-4 text-sm text-gray-600">
-                  <span className="flex items-center gap-1">
-                    <span className="text-[var(--accent-gold)]">💰</span>
-                    {selectedService.price}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <span className="text-[var(--accent-gold)]">⏱️</span>
-                    {selectedService.duration}
-                  </span>
-                </div>
-              </div>
+        <div className="service-modal">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h3 className="modal-title">{selectedService.title}</h3>
               <button
                 onClick={() => setSelectedService(null)}
-                className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+                className="modal-close"
               >
                 ×
               </button>
             </div>
 
-            <img 
-              src={selectedService.image} 
-              alt={selectedService.title}
-              className="w-full h-48 object-cover rounded-2xl mb-6"
-            />
+            <div className="modal-body">
+              <img 
+                src={selectedService.image} 
+                alt={selectedService.title}
+                className="modal-image"
+              />
 
-            <p className="text-gray-700 mb-6 leading-relaxed">{selectedService.fullDesc}</p>
+              <div className="modal-info">
+                <div className="modal-pricing">
+                  <span className="modal-price">{selectedService.price}</span>
+                  <span className="modal-duration">{selectedService.duration}</span>
+                </div>
 
-            <div className="mb-6">
-              <h4 className="font-bold text-[var(--primary-dark)] mb-4">What's Included:</h4>
-              <div className="grid md:grid-cols-2 gap-2">
-                {selectedService.features.map((feature, index) => (
-                  <div key={index} className="flex items-center text-sm">
-                    <span className="text-[var(--accent-gold)] mr-2">✓</span>
-                    {feature}
+                <p className="modal-description">{selectedService.fullDesc}</p>
+
+                <div className="modal-features">
+                  <h4>What's Included:</h4>
+                  <div className="modal-features-list">
+                    {selectedService.features.map((feature, index) => (
+                      <div key={index} className="modal-feature">
+                        <span className="feature-check">✓</span>
+                        <span>{feature}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
 
-            <div className="bg-[var(--bg-cream)] p-4 rounded-xl mb-6">
-              <h5 className="font-semibold mb-2">Availability:</h5>
-              <p className="text-sm text-gray-600">{selectedService.availability}</p>
-            </div>
-
-            <div className="flex gap-4">
+            <div className="modal-actions">
               <button
                 onClick={() => setSelectedService(null)}
-                className="button-secondary flex-1"
+                className="button-secondary"
               >
                 Close
               </button>
-              <button className="button-primary flex-1">
-                Book This Service
+              <button className="button-primary">
+                Order This Service
               </button>
             </div>
           </div>
