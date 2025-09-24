@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../components/CartContext"; // Update this path to match your file struc
-//import "../cart.css";
 export default function Cart() {
   const { cart: cartItems, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
   const [promoCode, setPromoCode] = useState("");
