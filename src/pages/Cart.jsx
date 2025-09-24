@@ -531,7 +531,7 @@ export default function Cart() {
                     <div className="flex justify-between items-center text-3xl font-bold text-[#1a3636] mb-2 highlighted-total">
                       <span>Total</span>
                       <span className="total-amount highlighted-price">
-                        {'$ ' + total.toFixed(2)}
+                        {'  $' + total.toFixed(2)}
                       </span>
                     </div>
                     {(savings + discountAmount) > 0 && (
