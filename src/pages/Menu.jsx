@@ -181,28 +181,26 @@ export default function Menu() {
   };
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="menu-page">
 
-      {/* Enhanced Header Section */}
-      <section className="section bg-gradient-to-br from-gray-50 to-white">
-        <div className="container text-center">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="heading-1 mb-6" style={{color: 'var(--primary-dark)'}}>
-              Our Exquisite Menu
-            </h1>
-            <p className="body-large mb-8 leading-relaxed" style={{color: 'var(--text-light)'}}>
+      {/* Menu Hero Section - Matching Contact Page Style */}
+      <section className="menu-hero">
+        <div className="container">
+          <div className="menu-hero-content">
+            <h1 className="display-1">Our Exquisite <span className="text-gradient">Menu</span></h1>
+            <p className="body-large">
               Discover a world of flavors crafted with passion and served with excellence. 
               Each dish tells a story of tradition, innovation, and culinary artistry.
             </p>
-            <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <div className="bg-white px-6 py-4 rounded-2xl shadow-lg border" style={{borderColor: 'rgba(201, 169, 110, 0.2)'}}>
-                <span className="text-lg font-semibold" style={{color: 'var(--primary-green)'}}>{menuItems.flatMap(g => g.items).length} Signature Dishes</span>
+            <div className="flex flex-wrap justify-center gap-6 mt-8">
+              <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                <span className="text-lg font-semibold text-white">{menuItems.flatMap(g => g.items).length} Signature Dishes</span>
               </div>
-              <div className="bg-white px-6 py-4 rounded-2xl shadow-lg border" style={{borderColor: 'rgba(201, 169, 110, 0.2)'}}>
-                <span className="text-lg font-semibold" style={{color: 'var(--primary-green)'}}>{cuisines.length - 1} Cuisine Types</span>
+              <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                <span className="text-lg font-semibold text-white">{cuisines.length - 1} Cuisine Types</span>
               </div>
-              <div className="bg-white px-6 py-4 rounded-2xl shadow-lg border" style={{borderColor: 'rgba(201, 169, 110, 0.2)'}}>
-                <span className="text-lg font-semibold" style={{color: 'var(--primary-green)'}}>Chef's Specials</span>
+              <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                <span className="text-lg font-semibold text-white">Chef's Specials</span>
               </div>
             </div>
           </div>
@@ -414,7 +412,7 @@ export default function Menu() {
                             return newSet;
                           });
                         }, 2000);
-+                        setIsCartModalOpen(true);
+                        setIsCartModalOpen(true);
                       }}
                       className="button-primary px-8 py-3 text-sm flex items-center justify-center gap-2"
                     >
