@@ -128,14 +128,33 @@ export default function Cart() {
   // Empty cart state
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen pt-24" style={{ background: 'var(--bg-light)' }}>
-        <div className="container">
-          <div className="empty-cart-container animate-slide-up">
-            <div className="empty-cart-icon">🛒</div>
-            <h1 className="display-2 mb-6" style={{ color: 'var(--primary-dark)' }}>Your Cart Awaits</h1>
-            <p className="body-large mb-12 max-w-2xl mx-auto" style={{ color: 'var(--text-light)' }}>
-              Discover our exquisite collection of culinary masterpieces and start building your perfect dining experience.
-            </p>
+      <div className="cart-page">
+        {/* Empty Cart Hero Section */}
+        <section className="cart-hero">
+          <div className="container">
+            <div className="cart-hero-content">
+              <h1 className="display-1">Your Cart <span className="text-gradient">Awaits</span></h1>
+              <p className="body-large">
+                Discover our exquisite collection of culinary masterpieces and start building your perfect dining experience.
+              </p>
+              <div className="flex flex-wrap justify-center gap-6 mt-8">
+                <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                  <span className="text-lg font-semibold text-white">Premium Ingredients</span>
+                </div>
+                <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                  <span className="text-lg font-semibold text-white">Chef Prepared</span>
+                </div>
+                <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                  <span className="text-lg font-semibold text-white">Fast Delivery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Action Buttons */}
+        <section className="section">
+          <div className="container">
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a
                 href="/menu"
@@ -153,35 +172,34 @@ export default function Cart() {
               </a>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-24" style={{ background: 'var(--bg-light)' }}>
-      {/* Enhanced Header */}
-      <section className="section" style={{ background: 'var(--bg-cream)' }}>
+    <div className="cart-page">
+      {/* Cart Hero Section - Matching Contact/Menu Page Style */}
+      <section className="cart-hero">
         <div className="container">
-          <div className="section-header">
-            <h1 className="display-1 section-title mb-6">
-              Your Culinary <span className="text-gradient">Selection</span>
-            </h1>
-            <p className="body-large section-subtitle mb-10 max-w-2xl mx-auto">
+          <div className="cart-hero-content">
+            <h1 className="display-1">Your Culinary <span className="text-gradient">Selection</span></h1>
+            <p className="body-large">
               Review your carefully curated dining experience and complete your order with confidence.
             </p>
-            <div className="flex flex-wrap justify-center gap-8 text-sm feature-pills">
-              {[
-                { icon: "👨‍🍳", text: "Chef Prepared" },
-                { icon: "🔒", text: "Secure Checkout" },
-                { icon: "⭐", text: "Premium Service" },
-                { icon: "🚀", text: "Fast Delivery" }
-              ].map((item, index) => (
-                <div key={index} className="feature-pill">
-                  <span className="text-2xl">{item.icon}</span>
-                  <span className="font-semibold" style={{ color: 'var(--primary-green)' }}>{item.text}</span>
-                </div>
-              ))}
+            <div className="flex flex-wrap justify-center gap-6 mt-8">
+              <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                <span className="text-lg font-semibold text-white">👨‍🍳 Chef Prepared</span>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                <span className="text-lg font-semibold text-white">🔒 Secure Checkout</span>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                <span className="text-lg font-semibold text-white">⭐ Premium Service</span>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/30">
+                <span className="text-lg font-semibold text-white">🚀 Fast Delivery</span>
+              </div>
             </div>
           </div>
         </div>
