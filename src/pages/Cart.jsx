@@ -220,7 +220,7 @@ export default function Cart() {
                 {savings > 0 && (
                   <div className="savings-indicator">
                     <span>💰</span>
-                    You're saving ${savings.toFixed(2)}
+                    You're saving {savings.toFixed(2)}
                   </div>
                 )}
               </div>
@@ -287,11 +287,11 @@ export default function Cart() {
                         
                         <div className="flex items-baseline gap-4 mb-4">
                           <div className="price-current">
-                            ${item.price}
+                            {item.price}
                           </div>
                           {item.originalPrice && (
                             <div className="price-original">
-                              ${item.originalPrice}
+                              {item.originalPrice}
                             </div>
                           )}
                         </div>
@@ -332,11 +332,11 @@ export default function Cart() {
                           </div>
                           <div className="text-right">
                             <div className="price-total">
-                              ${(item.price * item.quantity).toFixed(2)}
+                              {(item.price * item.quantity).toFixed(2)}
                             </div>
                             {item.originalPrice && (
                               <div className="text-sm line-through" style={{ color: 'var(--text-light)' }}>
-                                ${(item.originalPrice * item.quantity).toFixed(2)}
+                                {(item.originalPrice * item.quantity).toFixed(2)}
                               </div>
                             )}
                           </div>
@@ -486,7 +486,7 @@ export default function Cart() {
                   <div className="space-y-4">
                     <div className="summary-line-item">
                       <span className="text-[#6b7280]">Subtotal</span>
-                      <span className="font-semibold text-[#1a3636] text-lg">${subtotal.toFixed(2)}</span>
+                      <span className="font-semibold text-[#1a3636] text-lg">{subtotal.toFixed(2)}</span>
                     </div>
                     
                     {savings > 0 && (
@@ -495,7 +495,7 @@ export default function Cart() {
                           <span>💰</span>
                           Item Savings
                         </span>
-                        <span className="font-semibold text-lg">-${savings.toFixed(2)}</span>
+                        <span className="font-semibold text-lg">-{savings.toFixed(2)}</span>
                       </div>
                     )}
                     
@@ -505,13 +505,13 @@ export default function Cart() {
                           <span>🎫</span>
                           Promo Discount ({discount}%)
                         </span>
-                        <span className="font-semibold text-lg">-${discountAmount.toFixed(2)}</span>
+                        <span className="font-semibold text-lg">-{discountAmount.toFixed(2)}</span>
                       </div>
                     )}
                     
                     <div className="summary-line-item">
                       <span className="text-[#6b7280]">Tax (8.75%)</span>
-                      <span className="font-semibold text-[#1a3636] text-lg">${tax.toFixed(2)}</span>
+                      <span className="font-semibold text-[#1a3636] text-lg">{tax.toFixed(2)}</span>
                     </div>
                     
                     <div className="summary-line-item">
@@ -522,7 +522,7 @@ export default function Cart() {
                       {deliveryFee === 0 ? (
                         <span className="text-green-600 font-bold text-lg">FREE</span>
                       ) : (
-                        <span className="font-semibold text-[#1a3636] text-lg">${deliveryFee.toFixed(2)}</span>
+                        <span className="font-semibold text-[#1a3636] text-lg">{deliveryFee.toFixed(2)}</span>
                       )}
                     </div>
                   </div>
@@ -531,12 +531,12 @@ export default function Cart() {
                     <div className="flex justify-between items-center text-3xl font-bold text-[#1a3636] mb-2">
                       <span>Total</span>
                       <span className="total-amount">
-                        ${total.toFixed(2)}
+                        {total.toFixed(2)}
                       </span>
                     </div>
                     {(savings + discountAmount) > 0 && (
                       <div className="text-sm text-green-600 text-right font-medium">
-                        🎉 You saved ${(savings + discountAmount).toFixed(2)}!
+                        🎉 You saved {(savings + discountAmount).toFixed(2)}!
                       </div>
                     )}
                   </div>
