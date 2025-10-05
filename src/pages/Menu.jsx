@@ -114,6 +114,8 @@ export default function Menu() {
 
   const categories = [
     { id: "all", name: "All Dishes" },
+    {id: "shorteats", name: "Shorteats"},
+    {id: "wings", name: "Wings"},//shorteats
     { id: "appetizers", name: "Appetizers" },
     { id: "soups", name: "Soups" },
     { id: "veg", name: "Vegetarian" },

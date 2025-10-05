@@ -354,7 +354,7 @@ export default function Footer() {
         }
       `}</style>
 
-      <footer className="footer text-white">
+       <footer className="footer text-white">
         <div className="footer-content max-w-7xl mx-auto px-6 py-16">
           <div className="footer-grid grid lg:grid-cols-3 gap-8">
             
@@ -377,7 +377,7 @@ export default function Footer() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> 
 
             {/* Navigation & Contact */}
             <div className="section-card">
