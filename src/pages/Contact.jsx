@@ -254,7 +254,7 @@ export default function Contact() {
               },
               {
                 q: "Do you offer delivery?",
-                a: "Yes, we offer delivery within a 5-mile radius. Delivery fees and minimum order amounts apply."
+                a: "Yes, we offer delivery within a 20 km radius. Delivery fees and minimum order amounts apply."
               },
               {
                 q: "Can I customize my package?",
